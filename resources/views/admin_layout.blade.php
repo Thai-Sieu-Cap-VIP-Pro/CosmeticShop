@@ -9,27 +9,32 @@
 	<link rel="icon" href="images/favicon.ico" type="image/ico" />
 
     <title>Admin Page</title>
-
+   
     <!-- Bootstrap -->
-    <link href="{{('public/backEnd/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('public/backEnd/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="{{('public/backEnd/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{asset('public/backEnd/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+   
     <!-- NProgress -->
-    <link href="{{('public/backEnd/vendors/nprogress/nprogress.css" rel="stylesheet')}}">
+    <link href="{{asset('public/backEnd/vendors/nprogress/nprogress.css" rel="stylesheet')}}">
     <!-- iCheck -->
-    <link href="{{('public/backEnd/vendors/iCheck/skins/flat/green.css')}}" rel="stylesheet">
+    <link href="{{asset('public/backEnd/vendors/iCheck/skins/flat/green.css')}}" rel="stylesheet">
 	
     <!-- bootstrap-progressbar -->
-    <link href="{{('public/backEnd/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css')}}" rel="stylesheet">
+    <link href="{{asset('public/backEnd/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css')}}" rel="stylesheet">
     <!-- JQVMap -->
-    <link href="{{('public/backEnd/vendors/jqvmap/dist/jqvmap.min.css')}}" rel="stylesheet"/>
+    <link href="{{asset('public/backEnd/vendors/jqvmap/dist/jqvmap.min.css')}}" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
-    <link href="{{('public/backEnd/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
-
+    <link href="{{asset('public/backEnd/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
+   
     <!-- Custom Theme Style -->
-    <link href="{{('public/backEnd/build/css/custom.min.css')}}" rel="stylesheet">
-    <link href="{{('public/backEnd/build/css/style.css')}}" rel="stylesheet">
-    <link href="{{('public/backEnd/build/css/abc.css')}}" rel="stylesheet">
+    
+   
+    <link rel="stylesheet" href="{{asset('public/backEnd/build/css/custom.min.css')}}" >
+    <link rel="stylesheet" href="{{asset('public/backEnd/build/css/style.css')}}">
+    
+    
+    <!--<link href="{{('public/backEnd/build/css/abc.css')}}" rel="stylesheet">-->
 
 
   </head>
@@ -40,7 +45,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><img src="{{('public/backEnd/images/logo_notext1.png')}}" alt="" class="logo_admin"> <span>Beauty Group</span></a>
+              <a href="index.html" class="site_title"><img src="{{asset('public/backEnd/images/logo_notext1.png')}}" alt="" class="logo_admin"> <span>Beauty Group</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -48,7 +53,7 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="{{('public/backEnd/images/profile.png')}}" alt="..." class="img-circle profile_img">
+                <img src="{{asset('public/backEnd/images/profile.png')}}" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
@@ -137,7 +142,7 @@
               <ul class=" navbar-right">
                 <li class="nav-item dropdown open" style="padding-left: 15px;">
                   <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                    <img src="{{('public/backEnd/images/profile.png')}}" alt="">
+                    <img src="{{asset('public/backEnd/images/profile.png')}}" alt="">
                     <?php
                     $name = Session::get('adminUserName');
                     if ($name)
@@ -253,45 +258,46 @@
     </div>
 
     <!-- jQuery -->
-    <script src="{{('public/backEnd/vendors/jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{asset('public/backEnd/vendors/jquery/dist/jquery.min.js')}}"></script>
     <!-- Bootstrap -->
-    <script src="{{('public/backEnd/vendors/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('public/backEnd/vendors/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
     <!-- FastClick -->
-    <script src="{{('public/backEnd/vendors/fastclick/lib/fastclick.js')}}"></script>
+    <script src="{{asset('public/backEnd/vendors/fastclick/lib/fastclick.js')}}"></script>
     <!-- NProgress -->
-    <script src="{{('public/backEnd/vendors/nprogress/nprogress.j')}}s"></script>
+    <script src="{{asset('public/backEnd/vendors/nprogress/nprogress.j')}}s"></script>
     <!-- Chart.js -->
-    <script src="{{('public/backEnd/vendors/Chart.js/dist/Chart.min.js')}}"></script>
+    <script src="{{asset('public/backEnd/vendors/Chart.js/dist/Chart.min.js')}}"></script>
     <!-- gauge.js -->
-    <script src="{{('public/backEnd/vendors/gauge.js/dist/gauge.min.js')}}"></script>
+    <script src="{{asset('public/backEnd/vendors/gauge.js/dist/gauge.min.js')}}"></script>
     <!-- bootstrap-progressbar -->
-    <script src="{{('public/backEnd/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
+    <script src="{{asset('public/backEnd/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
     <!-- iCheck -->
-    <script src="{{('public/backEnd/vendors/iCheck/icheck.min.js')}}"></script>
+    <script src="{{asset('public/backEnd/vendors/iCheck/icheck.min.js')}}"></script>
     <!-- Skycons -->
-    <script src="{{('public/backEnd/vendors/skycons/skycons.js')}}"></script>
+    <script src="{{asset('public/backEnd/vendors/skycons/skycons.js')}}"></script>
     <!-- Flot -->
-    <script src="{{('public/backEnd/vendors/Flot/jquery.flot.js')}}"></script>
-    <script src="{{('public/backEnd/vendors/Flot/jquery.flot.pie.js')}}"></script>
-    <script src="{{('public/backEnd/vendors/Flot/jquery.flot.time.js')}}"></script>
-    <script src="{{('public/backEnd/vendors/Flot/jquery.flot.stack.js')}}"></script>
-    <script src="{{('public/backEnd/vendors/Flot/jquery.flot.resize.js')}}"></script>
+    <script src="{{asset('public/backEnd/vendors/Flot/jquery.flot.js')}}"></script>
+    <script src="{{asset('public/backEnd/vendors/Flot/jquery.flot.pie.js')}}"></script>
+    <script src="{{asset('public/backEnd/vendors/Flot/jquery.flot.time.js')}}"></script>
+    <script src="{{asset('public/backEnd/vendors/Flot/jquery.flot.stack.js')}}"></script>
+    <script src="{{asset('public/backEnd/vendors/Flot/jquery.flot.resize.js')}}"></script>
     <!-- Flot plugins -->
-    <script src="{{('public/backEnd/vendors/flot.orderbars/js/jquery.flot.orderBars.js')}}"></script>
-    <script src="{{('public/backEnd/vendors/flot-spline/js/jquery.flot.spline.min.js')}}"></script>
-    <script src="{{('public/backEnd/vendors/flot.curvedlines/curvedLines.js')}}"></script>
+    <script src="{{asset('public/backEnd/vendors/flot.orderbars/js/jquery.flot.orderBars.js')}}"></script>
+    <script src="{{asset('public/backEnd/vendors/flot-spline/js/jquery.flot.spline.min.js')}}"></script>
+    <script src="{{asset('public/backEnd/vendors/flot.curvedlines/curvedLines.js')}}"></script>
     <!-- DateJS -->
-    <script src="{{('public/backEnd/vendors/DateJS/build/date.js')}}"></script>
+    <script src="{{asset('public/backEnd/vendors/DateJS/build/date.js')}}"></script>
     <!-- JQVMap -->
-    <script src="{{('public/backEnd/vendors/jqvmap/dist/jquery.vmap.js')}}"></script>
-    <script src="{{('public/backEnd/vendors/jqvmap/dist/maps/jquery.vmap.world.js')}}"></script>
-    <script src="{{('public/backEnd/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js')}}"></script>
+    <script src="{{asset('public/backEnd/vendors/jqvmap/dist/jquery.vmap.js')}}"></script>
+    <script src="{{asset('public/backEnd/vendors/jqvmap/dist/maps/jquery.vmap.world.js')}}"></script>
+    <script src="{{asset('public/backEnd/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js')}}"></script>
     <!-- bootstrap-daterangepicker -->
-    <script src="{{('public/backEnd/vendors/moment/min/moment.min.js')}}"></script>
-    <script src="{{('public/backEnd/vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+    <script src="{{asset('public/backEnd/vendors/moment/min/moment.min.js')}}"></script>
+    <script src="{{asset('public/backEnd/vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
 
     <!-- Custom Theme Scripts -->
-    <script src="{{('public/backEnd/build/js/custom.min.js')}}"></script>
+    <script src="{{asset('public/backEnd/build/js/custom.min.js')}}"></script>
 	
+    
   </body>
 </html>
