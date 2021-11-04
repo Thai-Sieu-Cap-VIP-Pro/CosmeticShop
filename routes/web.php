@@ -33,11 +33,7 @@ Route::post('/save-category-product',[CategoryProduct::class,'saveCategory']);
 Route::get('/undisplay-category-product/{id}',[CategoryProduct::class,'unDisplayCategory']);
 Route::get('/display-category-product/{id}',[CategoryProduct::class,'displayCategory']);
 
-
-
 Route::get('/edit-category-product/{id}',[CategoryProduct::class,'editCategory']);
-
-
 
 Route::get('/delete-category-product/{id}',[CategoryProduct::class,'deleteCategory']);
 
@@ -65,6 +61,12 @@ Route::get('/delete-supplier/{id}',[SupplierController::class,'deleteSupplier'])
 //product-admin
 Route::get('/show-product-admin',[ProductController::class,'showProduct']);
 Route::get('/add-product-admin',[ProductController::class,'addProduct']);
+Route::post('/save-product',[ProductController::class,'saveProduct']);
+Route::get('/undisplay-product/{id}',[ProductController::class,'unDisplayProduct']);
+Route::get('/display-product/{id}',[ProductController::class,'displayProduct']);
+Route::get('/edit-product/{id}',[ProductController::class,'editProduct']);
+Route::get('/delete-product/{id}',[ProductController::class,'deleteProduct']);
+Route::post('/update-product/{id}',[ProductController::class,'updateProduct']);
 
 //cart
 Route::get('/cart',[CartController::class,'showCart']);
