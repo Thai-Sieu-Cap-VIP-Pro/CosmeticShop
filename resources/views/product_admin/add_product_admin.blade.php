@@ -13,68 +13,95 @@
     </div>
     <div class="x_content">
         <br />
-        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="" method="post">
-
+        <?php
+        $message = Session::get('message');
+        if ($message)
+        {
+          ?>
+              <div class="alert alert-success" role="alert">
+                Thêm danh mục sản phẩm thành công
+              </div>
+          <?php
+          Session::put('message','');
+        }
+      ?>
+    <div class="x_content">
+        <br />
+        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST" action="{{URL::to('/save-product')}}"  enctype="multipart/form-data">
+            {{ csrf_field() }}
             <div class="item form-group">
                 <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Tên sản phẩm <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 ">
-                    <input type="text" id="first-name" required="required" class="form-control ">
+                    <input type="text" id="first-name" required="required" class="form-control" name ="product_name">
                 </div>
             </div>
             <div class="item form-group">
                 <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Hình ảnh sản phẩm <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 ">
-                    <input type="file" id="first-name" required="required" class="form-control ">
+                    <input type="file" id="first-name" required="required" class="form-control" name="product_image">
                 </div>
             </div>
             <div class="item form-group">
                 <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Giá sản phẩm <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 ">
-                    <input type="text" id="last-name" name="last-name" required="required" class="form-control">
+                    <input type="text" id="last-name"  required="required" class="form-control" name="product_price">
                 </div>
             </div>
             <div class="item form-group">
                 <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Số  lượng </label>
                 <div class="col-md-6 col-sm-6 ">
-                    <input id="middle-name" class="form-control" type="text" name="middle-name">
+                    <input id="middle-name" class="form-control" type="text" name="product_quanity">
                 </div>
             </div>
             <div class=" item form-group">
                 <label class="col-form-label col-md-3 col-sm-3  label-align">Mô tả sản phẩm<span class="required">*</span></label>
                 <div class="col-md-9 col-sm-9">
-                    <textarea required="required" name='message' cols="30"></textarea></div>
+                    <textarea  required="required" name='product_desc' cols="30" rows="5"></textarea></div>
             </div>
             <div class="form-group item">
                 <label class="control-form-label col-md-3 col-sm-3 label-align" >Danh mục</label>
                 <div class="col-md-6 col-sm-6 ">
-                    <select class="form-control">
-                        <option>Danh mục 1</option>
-                        <option>Danh mục 2</option>
-                        <option>Danh mục 3</option>
+                    <select name="category_id" class="form-control">
+                        @foreach($danhmuc as $key =>$muc)
+                        <option value="{{$muc->category_id}}">{{$muc->category_name}}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
             <div class="form-group item">
                 <label class="control-form-label col-md-3 col-sm-3 label-align" >Nhãn hiệu</label>
                 <div class="col-md-6 col-sm-6 ">
-                    <select class="form-control">
-                        <option>Nhãn hiệu 1</option>
-                        <option>Nhãn hiệu 2</option>
-                        <option>Nhãn hiệu 3</option>
+                    <select name ="brand_id" class="form-control">
+                    @foreach($nhanhieu as $key =>$hieu)
+                        <option value="{{$hieu->brand_id}}">{{$hieu->brand_name}}</option>
+                    @endforeach
                     </select>
                 </div>
             </div>
             <div class="form-group item">
                 <label class="control-form-label col-md-3 col-sm-3 label-align" >Nhà cung cấp</label>
                 <div class="col-md-6 col-sm-6 ">
-                    <select class="form-control">
-                        <option>Nhật Bản</option>
-                        <option>Hoa kì</option>
-                        <option>Đức</option>
+                    <select name="supplier_id" class="form-control">
+                    @foreach($nhacungcap as $key =>$ncc)
+                        <option value="{{$ncc->supplier_id}}">{{$ncc->supplier_name}}</option>
+                    @endforeach
                     </select>
+                </div>
+            </div>
+            <div class="item form-group">
+                <label class="col-form-label col-md-3 col-sm-3 label-align">Tình trạng sản phẩm</label>
+                <div class="col-md-6 col-sm-6 ">
+                    <div id="gender" class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-secondary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                            <input type="radio" name="product_status" value="0" class="join-btn"> &nbsp; Hết hàng &nbsp;
+                        </label>
+                        <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                            <input type="radio" name="product_status" value="1" class="join-btn"> Còn hàng
+                        </label>
+                    </div>
                 </div>
             </div>
             <div class="item form-group">
@@ -82,10 +109,10 @@
                 <div class="col-md-6 col-sm-6 ">
                     <div id="gender" class="btn-group" data-toggle="buttons">
                         <label class="btn btn-secondary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                            <input type="radio" name="gender" value="male" class="join-btn"> &nbsp; Còn hàng &nbsp;
+                            <input type="radio" name="product_state" value="0" class="join-btn"> &nbsp; Ẩn &nbsp;
                         </label>
                         <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                            <input type="radio" name="gender" value="female" class="join-btn"> Hết hàng
+                            <input type="radio" name="product_state" value="1" class="join-btn"> Hiện
                         </label>
                     </div>
                 </div>
@@ -94,7 +121,7 @@
                 <label class="col-form-label col-md-3 col-sm-3 label-align">Ngày hết hạn <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 ">
-                    <input id="birthday" class="date-picker form-control" placeholder="dd-mm-yyyy" type="text" required="required" type="text" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+                    <input id="birthday" class="date-picker form-control" name="product_expire" placeholder="dd-mm-yyyy" type="text" required="required"  onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
                     <script>
                         function timeFunctionLong(input) {
                             setTimeout(function() {

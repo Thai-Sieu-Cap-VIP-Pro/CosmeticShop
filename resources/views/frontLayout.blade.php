@@ -21,7 +21,7 @@
         <!-- logo and search box -->
         <div class="row header_search">
             <div class="image">
-                <img src="{{('public/frontEnd/images/logo.png')}}" alt="">
+                <img src="{{asset('public/frontEnd/images/logo.png')}}" alt="">
             </div>
             <div class="search_box">
                 <input type="text" placeholder="Tìm kiếm...">
@@ -39,7 +39,7 @@
         <!-- start navigation -->
         <div class="row navigation">
             <div class="logo_phone">
-                <img src="{{('public/frontEnd/images/logo_notext1.png')}}" alt="">
+                <img src="{{asset('public/frontEnd/images/logo_notext1.png')}}" alt="">
             </div>
             <i class="fas fa-bars menu_icon"></i>
             <h3 class="menu_text">MENU</h3>
@@ -62,15 +62,22 @@
                     </a>
                     <div class="sub_list">
                         <ul>
-                            <li><a href="">Hygge</a> </li>
-                            <li><a href="">Dior</a></li>
+                            @foreach($brand as $key => $thieu)
+                                <li><a href="">{{$thieu->brand_name}}</a> </li>
+                            @endforeach
                         </ul>
                     </div>
                 </li>
                 <li class="item">
                     <a href="" class="item_link">
-                        Cửa hàng
+                        Nhà cung cấp <i class="fas fa-angle-down"></i>
                     </a>
+                    <div class="sub_list">
+                        <ul>
+                        @foreach($supplier as $key => $ncc)
+                            <li><a href="">{{$ncc->supplier_name}}</a> </li>
+                        @endforeach
+                        </ul>
                 </li>
                 <li class="item">
                     <a href="" class="item_link">
