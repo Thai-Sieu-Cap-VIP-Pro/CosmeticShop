@@ -29,9 +29,9 @@
         <thead>
           <tr>
             <th>STT</th>
-            <th style="width: 200px">Tên danh mục</th>
+            <th style="width: 200px">Tên nhà cung cấp</th>
             <th>Quốc gia</th>
-            <th style="width: 300px">Mô tả danh mục</th>
+            <th style="width: 300px">Đặc điểm nhà cung cấp</th>
             <th >Tình trạng (nhấn để thay đổi)</th>
             <th>Hành động</th>
           </tr>

@@ -48,18 +48,31 @@ class BrandController extends Controller
         return redirect('/show-brand');
     }
 
+    
     public function editBrand($id)
     {
-        $edit_brand = DB::table('tbl_brand')->where('brand_id', $id)->get();
+        $edit_brand = DB::table('tbl_brand')->where('brand_id', $id)->first();
         $magage_brand = view('brand.edit_brand')->with('edit_brand', $edit_brand);
         return view('admin_layout')->with('brand.edit_brand', $magage_brand);
-       
-        // return view('category.edit_category');
+
     }
+    
+    public function updateBrand(Request $request, $id)
+    {
+        $brand = array();
+        //$brand['brand_id'] = $id;
+        $brand['brand_name'] = $request->brand_name;
+        $brand['brand_desc'] = $request->brand_desc;
+        //$brand->save();
+        DB::table('tbl_brand')->where('brand_id', $id)->update($brand);
+        Session::put('message','Cập nhật nhãn hiệu phẩm thành công');
+        return redirect('/show-brand');
+    }
+
 
     public function deleteBrand($id)
     {
-        $edit_brand = DB::table('tbl_brand')->where('brand_id', $id)->delete();
+        $delete_brand = DB::table('tbl_brand')->where('brand_id', $id)->delete();
         Session::put('message','Xóa nhãn hiệu sản phẩm thành công');
        return redirect('/show-brand');
     }

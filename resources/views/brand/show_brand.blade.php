@@ -29,8 +29,8 @@
         <thead>
           <tr>
             <th>STT</th>
-            <th style="width: 200px">Tên danh mục</th>
-            <th style="width: 500px">Mô tả danh mục</th>
+            <th style="width: 200px">Tên thương hiệu</th>
+            <th style="width: 500px">Mô tả thương hiệu</th>
             <th >Tình trạng (nhấn để thay đổi)</th>
             <th>Hành động</th>
           </tr>

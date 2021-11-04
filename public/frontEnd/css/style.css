@@ -415,6 +415,7 @@ body {
     background: white;
 }
 
+
 .product_wrap {
     padding: 10px;
 }
@@ -449,6 +450,7 @@ body {
     height: 60%;
     overflow: hidden;
     position: relative;
+    
 }
 
 .home-product-item .product_image .overlay {
@@ -739,6 +741,7 @@ body {
 
 .newsletter {
     margin-top: 30px;
+    display: inline-block;
 }
 
 .newsletter .content {

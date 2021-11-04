@@ -15,13 +15,13 @@
     <link href="{{('public/backEnd/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
     <!-- NProgress -->
-    <link href="{{('public/backEnd/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
+    <link href="{{asset('public/backEnd/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
     <!-- Animate.css -->
-    <link href="{{('public/backEnd/vendors/animate.css/animate.min.css')}}" rel="stylesheet">
+    <link href="{{asset('public/backEnd/vendors/animate.css/animate.min.css')}}" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="{{('public/backEnd/build/css/custom.min.css')}}" rel="stylesheet">
-    <link href="{{('public/backEnd/build/css/style.css')}}" rel="stylesheet">
+    <link href="{{asset('public/backEnd/build/css/custom.min.css')}}" rel="stylesheet">
+    <link href="{{asset('public/backEnd/build/css/style.css')}}" rel="stylesheet">
 
 
 
