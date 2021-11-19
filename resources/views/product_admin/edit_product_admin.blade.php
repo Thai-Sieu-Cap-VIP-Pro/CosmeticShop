@@ -3,6 +3,7 @@
 <div class="x_panel">
     <div class="x_title">
         <h2 class="admin_part_heading">Cập nhật sản phẩm</h2>
+
         <ul class="nav navbar-right panel_toolbox" style="margin-left:100px">
             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
             </li>
@@ -13,6 +14,7 @@
     </div>
     <div class="x_content">
         <br />
+
         <?php
             $message = Session::get('message');
             if ($message) {
@@ -30,17 +32,19 @@
         @foreach($edit_product as $key => $pro)
         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="{{URL::to('/update-product/'.$pro->product_id)}}" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
+
             <div class="item form-group">
                 <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Tên sản phẩm <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 ">
+
                     <input type="text" id="first-name" name="product_name" required="required" class="form-control " value="{{$pro->product_name}}">
                 </div>
             </div>
             <div class="item form-group">
-                <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Hình ảnh sản phẩm <span class="required">*</span>
-                </label>
+                <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Hình ảnh sản phẩm</label>      
                 <div class="col-md-6 col-sm-6 ">
+
                     <input type="file" id="first-name" name="product_img" required="required" class="form-control ">
                     <img src="{{URL::to('public/backEnd/images/'.$pro->product_img)}}" height="100" width="100">
                 </div>
@@ -50,6 +54,7 @@
                 </label>
                 <div class="col-md-6 col-sm-6 ">
                     <input type="text" id="last-name" name="product_price" required="required" class="form-control" value="{{$pro->product_price}}">
+
                 </div>
             </div>
             <div class="item form-group">
@@ -67,19 +72,23 @@
                 <label class="control-form-label col-md-3 col-sm-3 label-align" >Danh mục</label>
                 <div class="col-md-6 col-sm-6 ">
                     <select name="category_id" class="form-control">
+
                         @foreach($cate_product as $key => $cate)
                             @if($cate->category_id==$pro->category_id)
                             <option selected value="{{$cate->category_id}}">{{$cate->category_name}}</option>
                             @else
                             <option value="{{$cate->category_id}}">{{$cate->category_name}}</option>
                             @endif
+=======
                         @endforeach
                     </select>
                 </div>
             </div>
+
             <div class="form-group item">
                 <label class="control-form-label col-md-3 col-sm-3 label-align" >Nhãn hiệu</label>
                 <div class="col-md-6 col-sm-6 ">
+
                     <select name="brand_id" class="form-control">
                         @foreach($brand_product as $key => $brand)
                             @if($brand->brand_id==$pro->brand_id)
@@ -88,6 +97,7 @@
                             <option value="{{$brand->brand_id}}">{{$brand->brand_name}}</option>
                             @endif
                         @endforeach
+
                     </select>
                 </div>
             </div>
@@ -95,6 +105,7 @@
                 <label class="control-form-label col-md-3 col-sm-3 label-align" >Nhà cung cấp</label>
                 <div class="col-md-6 col-sm-6 ">
                     <select name="supplier_id" class="form-control">
+
                         @foreach($supplier_product as $key => $supplier)
                             @if($supplier->supplier_id==$pro->supplier_id)
                             <option selected value="{{$supplier->supplier_id}}">{{$supplier->supplier_name}}</option>
@@ -119,13 +130,17 @@
                     </div>
                 </div>
             </div>
+=======
+  
             <div class="item form-group">
                 <label class="col-form-label col-md-3 col-sm-3 label-align">Ngày hết hạn <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 ">
+
                     <input id="birthday" class="date-picker form-control" placeholder="dd-mm-yyyy" name ="product_expire" type="text" required="required"
                     type="text" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" 
                     onmouseout="timeFunctionLong(this)" value="{{Carbon\Carbon::parse($pro->product_expire)->format('Y-m-d')}}">
+
                     <script>
                         function timeFunctionLong(input) {
                             setTimeout(function() {

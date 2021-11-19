@@ -51,11 +51,23 @@ class SupplierController extends Controller
 
     public function editSupplier($id)
     {
-        $edit_supplier = DB::table('tbl_supplier')->where('supplier_id', $id)->get();
+        $edit_supplier = DB::table('tbl_supplier')->where('supplier_id', $id)->first();
         $magage_supplier = view('supplier.edit_supplier')->with('edit_supplier', $edit_supplier);
         return view('admin_layout')->with('supplier.edit_supplier', $magage_supplier);
     }
 
+    public function updateSupplier(Request $request, $id)
+    {
+        $supplier = array();
+        //$brand['brand_id'] = $id;
+        $supplier['supplier_name'] = $request->supplier_name;
+        $supplier['supplier_desc'] = $request->supplier_desc;
+        $supplier['supplier_country'] = $request->supplier_country;
+        //$brand->save();
+        DB::table('tbl_supplier')->where('supplier_id', $id)->update($supplier);
+        Session::put('message','Cập nhật nhà cung cấp thành công');
+        return redirect('/show-supplier');
+    }
     public function deleteSupplier($id)
     {
         $edit_supplier = DB::table('tbl_supplier')->where('supplier_id', $id)->delete();

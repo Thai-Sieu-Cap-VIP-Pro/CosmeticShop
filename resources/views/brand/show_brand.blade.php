@@ -25,12 +25,19 @@
         Session::put('message','');
       }
     ?>
+     <div class="search_box">
+          <form action="{{URL::to('/search-brand-admin')}}" method ="GET">
+            {{ csrf_field() }}
+            <input type="text" placeholder="Tìm kiếm..." name="tukhoabrand">
+            <button type="submit" name="search-items" value="Tìm kiếm danh mục"><i class="fa fa-search"></i></button>
+          </form>
+      </div>
       <table class="table">
         <thead>
           <tr>
             <th>STT</th>
-            <th style="width: 200px">Tên danh mục</th>
-            <th style="width: 500px">Mô tả danh mục</th>
+            <th style="width: 200px">Tên thương hiệu</th>
+            <th style="width: 500px">Mô tả thương hiệu</th>
             <th >Tình trạng (nhấn để thay đổi)</th>
             <th>Hành động</th>
           </tr>

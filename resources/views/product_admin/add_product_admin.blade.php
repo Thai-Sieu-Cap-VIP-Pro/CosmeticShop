@@ -14,6 +14,7 @@
     <div class="x_content">
         <br />
         <?php
+
             $message = Session::get('message');
             if ($message) {
                 ?>
@@ -29,17 +30,21 @@
         <br />
     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="{{URL::to('/save-product')}}" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
+
             <div class="item form-group">
                 <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Tên sản phẩm <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 ">
+
                     <input type="text" id="first-name" required="required" class="form-control " name="product_name">
+
                 </div>
             </div>
             <div class="item form-group">
                 <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Hình ảnh sản phẩm <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 ">
+
                     <input type="file" id="first-name" required="required" class="form-control " name="product_img">
                 </div>
             </div>
@@ -48,6 +53,7 @@
                 </label>
                 <div class="col-md-6 col-sm-6 ">
                     <input type="text" id="last-name" required="required" class="form-control" name="product_price">
+
                 </div>
             </div>
             <div class="item form-group">
@@ -84,6 +90,7 @@
             <div class="form-group item">
                 <label class="control-form-label col-md-3 col-sm-3 label-align" >Nhà cung cấp</label>
                 <div class="col-md-6 col-sm-6 ">
+
                     <select name="produce_supplier" class="form-control">
                         @foreach($supplier_product as $key => $supplier)
                         <option value="{{$supplier->supplier_id}}">{{$supplier->supplier_name}}</option>
@@ -92,9 +99,22 @@
                 </div>
             </div>
             <div class="item form-group">
+
                 <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Giảm giá</label>
                 <div class="col-md-6 col-sm-6 ">
                     <input type="text" id="last-name" required="required" class="form-control" name="product_discount">
+=======
+                <label class="col-form-label col-md-3 col-sm-3 label-align">Tình trạng sản phẩm</label>
+                <div class="col-md-6 col-sm-6 ">
+                    <div id="gender" class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-secondary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                            <input type="radio" name="product_status" value="0" class="join-btn"> &nbsp; Hết hàng &nbsp;
+                        </label>
+                        <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                            <input type="radio" name="product_status" value="1" class="join-btn"> Còn hàng
+                        </label>
+                    </div>
+
                 </div>
             </div>
             <div class="item form-group">
@@ -102,10 +122,17 @@
                 <div class="col-md-6 col-sm-6 ">
                     <div id="gender" class="btn-group" data-toggle="buttons">
                         <label class="btn btn-secondary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+
                             <input type="radio" name="product_status" value="1" class="join-btn"> &nbsp; Còn hàng &nbsp;
                         </label>
                         <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
                             <input type="radio" name="product_status" value="0" class="join-btn"> Hết hàng
+=======
+                            <input type="radio" name="product_state" value="0" class="join-btn"> &nbsp; Ẩn &nbsp;
+                        </label>
+                        <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                            <input type="radio" name="product_state" value="1" class="join-btn"> Hiện
+
                         </label>
                     </div>
                 </div>
@@ -115,6 +142,7 @@
                 </label>
                 <div class="col-md-6 col-sm-6 ">
                     <input id="birthday" class="date-picker form-control" name="product_expire" placeholder="dd-mm-yyyy" type="text" required="required" type="text" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+
                     <script>
                         function timeFunctionLong(input) {
                             setTimeout(function() {
