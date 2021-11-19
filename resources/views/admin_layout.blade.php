@@ -70,7 +70,7 @@
             <!-- /menu profile quick info -->
 
             <br />
-
+            
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
@@ -257,6 +257,7 @@
       </div>
     </div>
 
+    
     <!-- jQuery -->
     <script src="{{asset('public/backEnd/vendors/jquery/dist/jquery.min.js')}}"></script>
     <!-- Bootstrap -->
@@ -298,6 +299,14 @@
     <!-- Custom Theme Scripts -->
     <script src="{{asset('public/backEnd/build/js/custom.min.js')}}"></script>
 	
-    
+    <!-- Lọc sản phẩm -->
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#sort').on('change', function(){
+                $('#form-sort').submit();
+                return false;    
+            });
+        });
+    </script>
   </body>
 </html>

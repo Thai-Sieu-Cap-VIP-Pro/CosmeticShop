@@ -24,6 +24,7 @@
                 <img src="{{('public/frontEnd/images/logo.png')}}" alt="">
             </div>
             <div class="search_box">
+                
                 <input type="text" placeholder="Tìm kiếm...">
                 <i class="fas fa-search"></i>
             </div>

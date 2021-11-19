@@ -20,20 +20,7 @@
                   <button type="submit" name="search-items" value="Tìm kiếm"><i class="fa fa-search"></i></button>
                   </form>
     </div> 
-
     <div class="x_content">
-    <div class="row">      
-          <label for="amount">Sắp xếp theo</label>
-          <form id="form-sort">
-              {{ csrf_field() }}
-          <select name="sort_by" id="sort" form="form-sort" class="form-control">
-              <option value="none">--Lọc--</option>
-              <option value="tang_dan">--Giá tăng dần</option>
-              <option value="giam_dan">--Giá giảm dần--</option>
-              <option value="kytu_az">--Lọc theo tên A đến Z--</option>
-              <option value="kytu_za">--Lọc theo tên Z đến A--</option>
-          </select>
-          </form>  
       <div class="table-responsive">
         <table class="table table-striped jambo_table bulk_action table_product_admin">
           <thead>
@@ -50,10 +37,9 @@
               <th class="column-title">Hành động </th>
             </tr>
           </thead>
+
           <tbody>
           <?php $i =0 ; ?>
-          
-      </div>
         @foreach ($all_product as $keyProduct => $eachProduct)
         <tr>
           <th scope="row">{{++$i}}</th>
@@ -77,9 +63,27 @@
             <a href="{{URL::to('/edit-product/'.$eachProduct->product_id)}}" class="btn btn-sm btn-primary">Sửa</a>
             <a href="{{URL::to('/delete-product/'.$eachProduct->product_id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm {{$eachProduct->product_name}} không?')">Xóa</a>
           </td>
-        </tr>  
+        </tr>
         @endforeach
-
+        
+        <!-- Lọc sản phẩm -->
+        <!-- <div class="row">
+          <div class="col-md-4">
+            <label for="amount">Sắp xếp theo</label>
+            <form>
+              @csrf
+            <select name="sort" id="sort" class="form-control">
+                <option value="{{Request::url()}}?sort_by=none">--Lọc--</option>
+                <option value="{{Request::url()}}?sort_by=tang_dan">--Giá tăng dần</option>
+                <option value="{{Request::url()}}?sort_by=giam_dan">--Giá giảm dần--</option>
+                <option value="{{Request::url()}}?sort_by=kytu_az">--Lọc theo tên A đến Z--</option>
+                <option value="{{Request::url()}}?sort_by=kytu_za">--Lọc theo tên Z đến A--</option>
+            </select>
+            </form>
+          </div>
+        </div> -->
+        <!-- End lọc sản phẩm -->
+        
           </tbody>
         </table>
         

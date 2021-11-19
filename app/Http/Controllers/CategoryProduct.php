@@ -6,14 +6,17 @@ use Illuminate\Http\Request;
 use DB;
 use Session;
 use Illuminate\Support\Facades\Redirect;
+use app\Models\CategoryProductModel;
+use app\Models\Product;
+// use app\CatePost;
 session_start();
 
 class CategoryProduct extends Controller
 {
     public function showCategory()
     {
-       $all_category = DB::table('tbl_category_product')->get();
-        return view('category.show_category')->with('all_categoy', $all_category);
+       $all_category = DB::table('tbl_category_product')->paginate(5)->appends(request()->query());
+        return view('category.show_category')->with('all_category', $all_category);
     }
 
     public function addCategory()
@@ -63,4 +66,6 @@ class CategoryProduct extends Controller
         Session::put('message','Xóa danh mục sản phẩm thành công');
        return redirect('/show-category');
     }
+
+    
 }

@@ -67,6 +67,8 @@ Route::get('/display-product/{id}',[ProductController::class,'displayProduct']);
 Route::get('/edit-product/{id}',[ProductController::class,'editProduct']);
 Route::get('/delete-product/{id}',[ProductController::class,'deleteProduct']);
 Route::post('/update-product/{id}',[ProductController::class,'updateProduct']);
+Route::get('/search-product',[ProductController::class,'searchProduct']);
+
 
 //cart
 Route::get('/cart',[CartController::class,'showCart']);

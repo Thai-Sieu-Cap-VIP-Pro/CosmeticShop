@@ -13,6 +13,20 @@
     </div>
     <div class="x_content">
         <br />
+        <?php
+            $message = Session::get('message');
+            if ($message) {
+                ?>
+                    <div class="alert alert-success" role="alert">
+                        Cập nhật sản phẩm thành công
+                    </div>
+                <?php
+                Session::put('message','');
+            }
+        ?>
+    </div>
+    <div class="x_content">
+        <br />
         @foreach($edit_product as $key => $pro)
         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="{{URL::to('/update-product/'.$pro->product_id)}}" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
@@ -47,7 +61,7 @@
             <div class=" item form-group">
                 <label class="col-form-label col-md-3 col-sm-3  label-align">Mô tả sản phẩm<span class="required">*</span></label>
                 <div class="col-md-9 col-sm-9">
-                    <textarea required="required" name='product_desc' cols="30" value="{{$pro->product_desc}}"></textarea></div>
+                    <textarea required="required" name='product_desc' cols="30" >{{$pro->product_desc}}</textarea></div>
             </div>
             <div class="form-group item">
                 <label class="control-form-label col-md-3 col-sm-3 label-align" >Danh mục</label>
@@ -101,6 +115,7 @@
                         <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
                             <input type="radio" name="product_status" value="0" class="join-btn"> Hết hàng
                         </label>
+                        
                     </div>
                 </div>
             </div>
