@@ -100,6 +100,12 @@
                       <li><a href="{{URL::to('/add-supplier')}}">Thêm nhà cung cấp</a></li>
                     </ul>
                   </li>
+                  <li><a><i class="fa fa-percent"></i>Khuyến mãi <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{URL::to('/show-discount')}}">Danh sách khuyến mãi</a></li>
+                      <li><a href="{{URL::to('/add-discount')}}">Thêm khuyến mãi</a></li>
+                    </ul>
+                  </li>
                   <li><a><i class="fa fa-list-alt"></i> Đơn hàng <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{URL::to('/')}}">Danh sách đơn hàng</a></li>

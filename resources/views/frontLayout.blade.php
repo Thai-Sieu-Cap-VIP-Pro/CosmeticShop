@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="{{asset('public/frontEnd/css/style.css?version=1')}}">
     <link rel="stylesheet" href="{{asset('public/frontEnd/css/cartHeader.css')}}">
     <link rel="stylesheet" href="{{asset('public/frontEnd/css/cart.css')}}">
+    <link rel="stylesheet" href="{{asset('public/frontEnd/css/detail.css')}}">
+    <link rel="stylesheet" href="{{asset('public/frontEnd/css/cart.css')}}">
+    <link rel="stylesheet" href="{{asset('public/frontEnd/css/login.css')}}">
 </head>
 
 <body>

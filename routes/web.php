@@ -7,6 +7,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\DiscountController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -78,6 +80,13 @@ Route::get('/cart',[CartController::class,'showCart']);
 
 
 
+//discount
+Route::get('/show-discount',[DiscountController::class,'showDiscount']);
+Route::get('/add-discount',[DiscountController::class,'create']);
+Route::get('/save-discount',[DiscountController::class,'saveDiscount']);
+Route::get('/delete-discount/{id}',[DiscountController::class,'deleteDiscount']);
+Route::get('/edit-discount/{id}',[DiscountController::class,'editDiscount']);
+Route::post('/update-discount/{id}',[DiscountController::class,'updateDiscount']);
 
 
 
