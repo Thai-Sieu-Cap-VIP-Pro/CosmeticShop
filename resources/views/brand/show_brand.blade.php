@@ -25,6 +25,13 @@
         Session::put('message','');
       }
     ?>
+     <div class="search_box">
+          <form action="{{URL::to('/search-brand-admin')}}" method ="GET">
+            {{ csrf_field() }}
+            <input type="text" placeholder="Tìm kiếm..." name="tukhoabrand">
+            <button type="submit" name="search-items" value="Tìm kiếm danh mục"><i class="fa fa-search"></i></button>
+          </form>
+      </div>
       <table class="table">
         <thead>
           <tr>

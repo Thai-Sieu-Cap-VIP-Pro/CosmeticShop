@@ -6,10 +6,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" href="images/favicon.ico" type="image/ico" />
+	  <link rel="icon" href="images/favicon.ico" type="image/ico" />
 
     <title>Admin Page</title>
-   
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- Bootstrap -->
     <link href="{{asset('public/backEnd/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Font Awesome -->
@@ -35,7 +35,18 @@
     
     
     <!--<link href="{{('public/backEnd/build/css/abc.css')}}" rel="stylesheet">-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#sort').on('change', function(){
+                $('#form-sort').submit();
+                return false;    
+            });
+        });
+
+    </script>
 
   </head>
 
@@ -297,7 +308,102 @@
 
     <!-- Custom Theme Scripts -->
     <script src="{{asset('public/backEnd/build/js/custom.min.js')}}"></script>
-	
+    
+    
+    <script type="text/javascript">
+      $(document).ready(function(){
+        load_gallery();
+
+         function load_gallery(){
+            var pro_id = $('.pro_id').val();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+              url:"{{url('/select-gallery')}}",
+              method: "POST",
+              data:{pro_id:pro_id,_token:_token},
+              success: function(data){
+                $('.gallery_load').html(data);
+              }
+            });
+          }
+
+          $('#file').change(function(){
+            var error = '';
+            var files = $('#file')[0].files;
+
+            if(files.length > 4){
+              error+='<p>Chỉ được chọn tối đa 4 ảnh<p>';
+            }else if(files.lenght==''){
+              error+='<p>Bạn không được bỏ trống ảnh</p>';
+            }else if(files.size > 2000000){
+              error+='<p>File ảnh không được lớn hơn 2MB</p>';
+            }
+
+            if(error ==''){
+
+            }else{
+              $('#file').val();
+              $('#error_gallery').html('<span class="text-danger">'+error+'</span>');
+              return false;
+            }
+          });
+
+          $(document).on('blur','.edit_gallery_name',function(){
+              var gal_id = $(this).data('gal_id');
+              var gal_text = $(this).text();
+              var _token = $('input[name="_token"]').val();
+              $.ajax({
+              url:"{{url('/update-gallery-name')}}",
+              method: "POST",
+              data:{gal_id:gal_id,gal_text:gal_text,_token:_token},
+              success: function(data){
+                load_gallery();
+                $('#error_gallery').html('<span class="text-danger">Cập nhật tên ảnh thành công</span>');
+              }
+            });
+          });
+        
+          $(document).on('click','.delete-gal',function(){
+              var gal_id = $(this).data('gal_id');
+              var _token = $('input[name="_token"]').val();
+              if(confirm('Bạn có muốn xóa ảnh này không?')){
+                $.ajax({
+                url:"{{url('/delete-gallery')}}",
+                method: "POST",
+                data:{gal_id:gal_id,_token:_token},
+                success: function(data){
+                  load_gallery();
+                  $('#error_gallery').html('<span class="text-danger">Xóa ảnh thành công</span>');
+              }
+            });
+          }              
+        });
+
+        $(document).on('change','.file_imgae',function(){
+              var gal_id = $(this).data('gal_id');
+              var image =  document.getElementById('file-'+gal_id).files[0];
+              var form_data = new FormData();
+              form_data.append("file", document.getElementById('file-'+ gal_id).files[0]);
+              form_data.append("gal_id", gal_id);
+              $.ajax({
+                url:"{{url('/update-gallery')}}",
+                method: "POST",
+                headers:{
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data:form_data,
+                contentType:false,
+                cache:false,
+                processData:false,
+                success: function(data){
+                  load_gallery();
+                  $('#error_gallery').html('<span class="text-danger">Cập nhật ảnh thành công</span>');
+                }
+            });                     
+        });
+
+      });
+    </script>
     
   </body>
 </html>

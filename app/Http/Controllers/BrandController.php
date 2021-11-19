@@ -76,4 +76,12 @@ class BrandController extends Controller
         Session::put('message','Xóa nhãn hiệu sản phẩm thành công');
        return redirect('/show-brand');
     }
+
+    public function searchBrandAdmin(Request $request){
+        $timkiem = $request->tukhoabrand;
+        $thuonghieu = DB::table('tbl_brand')->where('brand_name', 'like','%'.$timkiem.'%')
+        ->orderBy('brand_id', 'ASC')->get();       
+        return view('brand.search_brand')->with('brand', $thuonghieu);
+    }
+
 }

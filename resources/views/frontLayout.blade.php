@@ -11,26 +11,64 @@
     <link rel="stylesheet" href="{{asset('public/frontEnd/css/style.css?version=1')}}">
     <link rel="stylesheet" href="{{asset('public/frontEnd/css/cartHeader.css')}}">
     <link rel="stylesheet" href="{{asset('public/frontEnd/css/cart.css')}}">
+    <link rel="stylesheet" href="{{asset('public/frontEnd/css/product_detail.css')}}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{asset('public/frontEnd/css/ightslider.css')}}">
+    <link rel="stylesheet" href="{{asset('public/frontEnd/css/lightgallery.min.css')}}">
+    <link rel="stylesheet" href="{{asset('public/frontEnd/css/prettify.css')}}">
+    <!-- <link rel="stylesheet" href="{{asset('public/frontEnd/css/cart_ajax.css')}}"> -->
+    <link rel="stylesheet" href="{{asset('public/frontEnd/css/login.css')}}">
+    <link rel="stylesheet" href="{{asset('public/frontEnd/css/checkout.css')}}">
+    
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#sort').on('change', function(){
+                $('#form-sort').submit();
+                return false;    
+            });
+        });
+
+    </script>
 </head>
 
 <body>
-
     <div class="container wrap">
         <!-- ========================================================================start header =================================================
         header include: logo and searchbox , navigaton, breadcums -->
         <!-- logo and search box -->
+        
         <div class="row header_search">
             <div class="image">
                 <img src="{{asset('public/frontEnd/images/logo.png')}}" alt="">
             </div>
+            
             <div class="search_box">
-                <input type="text" placeholder="Tìm kiếm...">
-                <i class="fas fa-search"></i>
+                <form action="{{URL::to('/tim-kiem')}}" autocomplete="off" method ="GET">
+                    {{ csrf_field() }}
+                <input type="text" id="keywords" placeholder="Tìm kiếm..." name="tukhoa">
+                <div id="search-ajax"></div>
+                <button type="submit" name="search-items" value="Tìm kiếm"><i class="fa fa-search"></i></button>
+                
+                </form>
+                <?php
+                   $account_id = Session::get('account_id');
+                   if($account_id !=NULL){
+                    ?>
+                    <a href="{{URL::to('/logout-checkout')}}">Đăng xuất</a>
+                    <?php
+                   }else{
+                       ?>
+                        <a href="{{URL::to('/login-checkout')}}">Đăng nhập/</a>
+                        <a href="{{URL::to('/register-form')}}">Đăng kí</a>
+                       <?php
+                   }
+                   ?>
             </div>
             <div class="header_cart">
                 <a href="{{URL::to('/cart')}}" class="">
                     <i class="fas fa-shopping-cart"></i>
-                    <p class="cart_quanity_header">4</p>
+                    <p class="cart_quanity_header">{{Cart::content()->count()}}</p>
                 </a>
             </div>
         </div>
@@ -182,6 +220,61 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <script src="./js/javascript.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="{{asset('public/frontEnd/js/lightgallery-all.min.js')}}"></script>
+    <script src="{{asset('public/frontEnd/js/lightslider.js')}}"></script>
+    <script src="{{asset('public/frontEnd/js/prettify.js')}}"></script>
+
+
+<script type="text/javascript">
+    
+  $(document).ready(function() {
+    $('#imageGallery').lightSlider({
+        gallery:true,
+        item:1,
+        loop:true,
+        thumbItem:3,
+        slideMargin:0,
+        enableDrag: false,
+        currentPagerPosition:'left',
+        onSliderLoad: function(el) {
+            el.lightGallery({
+                selector: '#imageGallery .lslide'
+            });
+        }  
+    });  
+  });
+</script>
+
+    <script type="text/javascript">
+        $('#keywords').keyup(function(){
+            var keywords = $(this).val();
+            
+            if(keywords != ''){                
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url:"{{url('/timkiem-ajax')}}",
+                    method: "POST",
+                    data:{keywords:keywords, _token:_token},
+                    success:function(data){
+                        $('#search-ajax').fadeIn();
+                        $('#search-ajax').html(data);
+                    }
+                });
+            }else{
+                $('#search-ajax').fadeOut();
+            }            
+        });
+
+        $(document).on('click', '.li_search_ajax', function(){
+            $('#keywords').val($(this).text());
+            $('#search-ajax').fadeOut();
+        }); 
+    </script>
+
+    
+
 </body>
 
 </html>

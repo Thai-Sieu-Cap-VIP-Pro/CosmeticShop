@@ -5,6 +5,10 @@ use DB;
 use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\GalleryModel;
+use App\Models\Product;
+use Cart;
+use File;
 session_start();
 
 class ProductController extends Controller
@@ -14,11 +18,32 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $sort_by = $request->sort_by;
+        
+        if($sort_by == 'giam_dan'){
+            $sort_field = 'product_price';
+            $sort_order = 'DESC';
+        }elseif($sort_by=='tang_dan'){
+            $sort_field = 'product_price';
+            $sort_order = 'ASC';               
+        }elseif($sort_by=='kytu_za'){
+            $sort_field = 'product_name';
+            $sort_order = 'DESC';        
+        }elseif($sort_by=='kytu_az'){
+            $sort_field = 'product_name';
+            $sort_order = 'ASC';                
+        }else{
+            $sort_field = 'product_id';
+            $sort_order = 'ASC';
+        }
+
+        
         $all_product = DB::table('tbl_product')->join('tbl_category_product','tbl_category_product.category_id', '=', 'tbl_product.category_id')
         ->join('tbl_brand','tbl_brand.brand_id', '=', 'tbl_product.brand_id')
-        ->join('tbl_supplier','tbl_supplier.supplier_id', '=', 'tbl_product.supplier_id')->get();
+        ->join('tbl_supplier','tbl_supplier.supplier_id', '=', 'tbl_product.supplier_id')
+        ->orderBy($sort_field, $sort_order)->get();
         return view('product_admin.show_product_admin') ->with(compact('all_product', $all_product));
     }
 
@@ -64,14 +89,25 @@ class ProductController extends Controller
         $data['brand_id'] = $request->brand_id;
         $data['supplier_id'] = $request->supplier_id;
         //Thêm ảnh
+        $path_gallery = 'public/backEnd/images/gallery/';
+        $path = 'public/backEnd/images/';
         $image = $request->file('product_image');
-        $new_image_name = $this->saveImage($image);
+        $image_name = $image->getClientOriginalName();
+        $image_name = current(explode('.', $image_name));
+        $new_image_name = $image_name.rand(0,99).'.'.$image->getClientOriginalExtension();
+        $image->move($path, $new_image_name);
+        File::copy($path.$new_image_name, $path_gallery.$new_image_name);
         $data['product_img'] = $new_image_name;
         
-        DB::table('tbl_product')->insert($data);
+        $pro_id = DB::table('tbl_product')->insertGetId($data);
+        $gallery = new GalleryModel();
+        $gallery->gallery_img = $new_image_name;
+        $gallery->gallery_name = $new_image_name;
+        $gallery->product_id = $pro_id;
+        $gallery->save();
+
         Session::put('message','Thêm sản phẩm thành công');
-        return redirect('/add-product-admin');
-        
+        return redirect('/add-product-admin');        
     }
      
     public function unStatusProduct($id)
@@ -178,5 +214,74 @@ class ProductController extends Controller
        return redirect('/show-product-admin');
     }
 
+    // end pages admin
+    public function detailProduct($id){
+        $thuonghieu = DB::table('tbl_brand')->where('brand_status', '1')->orderBy('brand_id','DESC')->get();
+        $nhacungcap = DB::table('tbl_supplier')->where('supplier_status', '1')->orderBy('supplier_id','DESC')->get();
+        
+        $detail_product = DB::table('tbl_product')->join('tbl_category_product','tbl_category_product.category_id', '=', 'tbl_product.category_id')
+        ->join('tbl_brand','tbl_brand.brand_id', '=', 'tbl_product.brand_id')
+        ->join('tbl_supplier','tbl_supplier.supplier_id', '=', 'tbl_product.supplier_id')
+        ->where('tbl_product.product_id', $id)->get();
+        
+        foreach($detail_product as $key => $result){
+            $category_id = $result->category_id;
+            $product_id = $result->product_id;
+        }
+        //gallery
+        $gallery = DB::table('tbl_gallery')->where('product_id', $product_id)->get();
+        $relative_product = DB::table('tbl_product')->join('tbl_category_product','tbl_category_product.category_id', '=', 'tbl_product.category_id')
+        ->join('tbl_brand','tbl_brand.brand_id', '=', 'tbl_product.brand_id')
+        ->join('tbl_supplier','tbl_supplier.supplier_id', '=', 'tbl_product.supplier_id')
+        ->where('tbl_category_product.category_id', $category_id)->whereNotIn('tbl_product.product_id', [$id])->paginate(4);
+        
+        return view('pages.product_detail.show_product_detail')->with('brand', $thuonghieu)->with('supplier', $nhacungcap)
+        ->with('product_details', $detail_product)->with('product_relative', $relative_product)->with('gallery', $gallery);
+    }  
     
+    public function searchProductAdmin(Request $request){
+        
+        
+    }  
+
+    public function AddRelativeProductCart(Request $request){
+        $productId= $request->productid_hidden;
+        $quantity = $request->qty_cart;
+        $name = $request->product_cart_name;
+        $price = $request->product_cart_price;
+        $product_imgage = $request->product_cart_image;
+        $cart_product = DB::table('tbl_product')->where('product_id', $productId)->first(); 
+        $data['id'] = $productId;
+        $data['qty'] = $quantity;
+        $data['name'] = $name;
+        $data['price'] = $price;
+        $data['weight'] = 1;
+        $data['options']['image'] = $product_imgage;
+        Cart::add($data);
+        $thuonghieu = DB::table('tbl_brand')->where('brand_status', '1')->orderBy('brand_id','DESC')->get();
+        $nhacungcap = DB::table('tbl_supplier')->where('supplier_status', '1')->orderBy('supplier_id','DESC')->get();
+        
+        $detail_product = DB::table('tbl_product')->join('tbl_category_product','tbl_category_product.category_id', '=', 'tbl_product.category_id')
+        ->join('tbl_brand','tbl_brand.brand_id', '=', 'tbl_product.brand_id')
+        ->join('tbl_supplier','tbl_supplier.supplier_id', '=', 'tbl_product.supplier_id')
+        ->where('tbl_product.product_id',  $productId)->get();
+        foreach($detail_product as $key => $result){
+            $category_id = $result->category_id;
+            $product_id = $result->product_id;
+        }
+
+        //gallery
+        $gallery = DB::table('tbl_gallery')->where('product_id', $product_id)->get();
+        $relative_product = DB::table('tbl_product')->join('tbl_category_product','tbl_category_product.category_id', '=', 'tbl_product.category_id')
+        ->join('tbl_brand','tbl_brand.brand_id', '=', 'tbl_product.brand_id')
+        ->join('tbl_supplier','tbl_supplier.supplier_id', '=', 'tbl_product.supplier_id')
+        ->where('tbl_category_product.category_id', $category_id)->whereNotIn('tbl_product.product_id', [$productId])->paginate(4);
+        Session::put('message','Thêm sản phẩm thành công');
+        return view('pages.product_detail.show_product_detail')->with('brand', $thuonghieu)->with('supplier', $nhacungcap)
+        ->with('product_details', $detail_product)->with('product_relative', $relative_product)->with('gallery', $gallery);
+    }
+
+  
 }
+    
+
