@@ -6,14 +6,18 @@ use Illuminate\Http\Request;
 use DB;
 use Session;
 use Illuminate\Support\Facades\Redirect;
+
+=======
 use App\Models\Product;
 use App\Models\CategoryProductModel;
+
 session_start();
 
 class CategoryProduct extends Controller
 {
     public function showCategory()
     {
+
        $all_category = DB::table('tbl_category_product')->paginate(3);
         return view('category.show_category')->with('all_categoy', $all_category);
     }
@@ -79,6 +83,9 @@ class CategoryProduct extends Controller
        return redirect('/show-category');
     }
 
+
+    
+=======
     //end admin page
     public function showCategoryHome(Request $request, $id){
         $danhmuc = DB::table('tbl_category_product')->where('category_status', '1')->orderBy('category_id','DESC')->get();
@@ -119,5 +126,6 @@ class CategoryProduct extends Controller
         ->orderBy('category_id', 'ASC')->get();       
         return view('category.search_category')->with('category', $danhmuc);
     }
+
 
 }

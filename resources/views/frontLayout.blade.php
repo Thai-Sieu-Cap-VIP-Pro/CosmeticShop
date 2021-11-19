@@ -44,6 +44,8 @@
             </div>
             
             <div class="search_box">
+
+=======
                 <form action="{{URL::to('/tim-kiem')}}" autocomplete="off" method ="GET">
                     {{ csrf_field() }}
                 <input type="text" id="keywords" placeholder="Tìm kiếm..." name="tukhoa">
@@ -64,6 +66,7 @@
                        <?php
                    }
                    ?>
+
             </div>
             <div class="header_cart">
                 <a href="{{URL::to('/cart')}}" class="">

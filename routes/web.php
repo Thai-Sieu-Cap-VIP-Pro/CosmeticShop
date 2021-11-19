@@ -39,6 +39,7 @@ Route::get('/add-category',[CategoryProduct::class,'addCategory']);
 Route::post('/save-category-product',[CategoryProduct::class,'saveCategory']);
 Route::get('/undisplay-category-product/{id}',[CategoryProduct::class,'unDisplayCategory']);
 Route::get('/display-category-product/{id}',[CategoryProduct::class,'displayCategory']);
+
 Route::get('/edit-category-product/{id}',[CategoryProduct::class,'editCategory']);
 Route::get('/delete-category-product/{id}',[CategoryProduct::class,'deleteCategory']);
 Route::post('/update-category/{id}',[CategoryProduct::class,'updateCategory']);
@@ -70,6 +71,19 @@ Route::get('/delete-supplier/{id}',[SupplierController::class,'deleteSupplier'])
 Route::post('/update-supplier/{id}',[SupplierController::class,'updateSupplier']);
 
 //product-admin
+
+Route::get('/show-product-admin',[ProductController::class,'showProduct']);
+Route::get('/add-product-admin',[ProductController::class,'addProduct']);
+Route::post('/save-product',[ProductController::class,'saveProduct']);
+Route::get('/undisplay-product/{id}',[ProductController::class,'unDisplayProduct']);
+Route::get('/display-product/{id}',[ProductController::class,'displayProduct']);
+Route::get('/edit-product/{id}',[ProductController::class,'editProduct']);
+Route::get('/delete-product/{id}',[ProductController::class,'deleteProduct']);
+Route::post('/update-product/{id}',[ProductController::class,'updateProduct']);
+Route::get('/search-product',[ProductController::class,'searchProduct']);
+
+
+=======
 Route::get('/show-product-admin',[ProductController::class,'index']);
 Route::get('/add-product-admin',[ProductController::class,'create']);
 Route::post('/save-product',[ProductController::class,'store']);
@@ -83,6 +97,7 @@ Route::post('/update-product/{id}',[ProductController::class,'update']);
 Route::get('/chi-tiet-san-pham/{id}',[ProductController::class,'detailProduct']);
 Route::get('/search-product-admin',[ProductController::class,'searchProductAdmin']);
 Route::post('/add-relative-to-cart',[ProductController::class,'AddRelativeProductCart']);
+
 //cart
 Route::get('/cart',[CartController::class,'showCart']);
 Route::post('/add-to-cart',[CartController::class,'AddProductCart']);
