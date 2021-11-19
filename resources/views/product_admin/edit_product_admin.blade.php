@@ -34,7 +34,7 @@
                 <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Giá sản phẩm <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 ">
-                    <input type="text" id="last-name" name="product_price" required="required" class="form-control" value ="{{$edit_product->product_price}}">
+                    <input type="text" id="last-name" name="product_price" required="required" class="form-control" value ="{{number_format($edit_product->product_price). ' vnđ'}}">
                 </div>
             </div>
             <div class="item form-group">

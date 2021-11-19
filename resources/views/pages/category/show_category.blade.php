@@ -139,10 +139,24 @@
             <div class="row heading">
                 Sản phẩm {{$muc_ten->category_name}}
             </div>
-            @endforeach
+         @endforeach
+        <div class="row">
+            <label for="amount"> Sắp xếp theo</label>
+            <form id="form-sort">
+            {{ csrf_field() }}
+                <select name="sort_by" id="sort" class="form-control" form="form-sort">
+                    <option value="none">--Lọc--</option>
+                    <option value="tang_dan">--Giá tăng dần--</option>
+                    <option value="giam_dan">--Giá giảm dần--</option>
+                    <option value="kytu_az">Lọc theo tên A đến Z</option>
+                    <option value="kytu_za">Lọc theo tên Z đến A</option>
+                </select>
+            </form>
+        </div>
             <div class ="row">
             @foreach($category_by_id as $key => $sp)
                 <div class="col-sm-4 product_wrap">
+                <a href="{{URL::to('/chi-tiet-san-pham/'.$sp->product_id)}}">
                     <div class="home-product-item">
                         <div class="product_image">
                             <img src="{{URL::to('public/backEnd/images/'.$sp->product_img)}}"  alt="">
@@ -167,28 +181,46 @@
                                 <button>View detail</button>
                             </div>
                         </div>
+                        
                     </div>
-                
+                    </a>
                 </div>
+                
                 @endforeach
                 
             </div>
             
             <div class="row">
-                <div class="col l-12 m-12 c-12 pagination_wrap">
-                    <div class="pagination">
-                        <a href="#">&laquo;</a>
-                        <a class="active" href="#">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                        <a href="#">5</a>
-                        <a href="#">6</a>
-                        <a href="#">&raquo;</a>
-                    </div>
-
+            <div class="col l-12 m-12 c-12 pagination_wrap">
+                <div class="pagination">
+                    <li style="display:inline;{{ ($category_by_id->currentPage() == 1) ? 'none;' : '' }}">
+                        <a href="{{ $category_by_id->url(1) }}">&laquo;</a>
+                    </li>
+                    @for ($i = 1; $i <= $category_by_id->lastPage(); $i++)
+                        <?php
+                        $link_limit = 7;
+                        $half_total_links = floor($link_limit / 2);
+                        $from = $category_by_id->currentPage() - $half_total_links;
+                        $to = $category_by_id->currentPage() + $half_total_links;
+                        if ($category_by_id->currentPage() < $half_total_links) {
+                        $to += $half_total_links - $category_by_id->currentPage();
+                        }
+                        if ($category_by_id->lastPage() - $category_by_id->currentPage() < $half_total_links) {
+                            $from -= $half_total_links - ($category_by_id->lastPage() - $category_by_id->currentPage()) - 1;
+                        }
+                        ?>
+                        @if ($from < $i && $i < $to)
+                            <li style="display:inline;" class="{{ ($category_by_id->currentPage() == $i) ? ' active' : '' }}">
+                                <a href="{{ $category_by_id->url($i) }}">{{ $i }}</a>
+                            </li>
+                        @endif
+                    @endfor
+                    <li style="display:inline;{{ ($category_by_id->currentPage() == $category_by_id->lastPage()) ? 'none;' : '' }}">
+                        <a href="{{ $category_by_id->url($category_by_id->lastPage()) }}">&raquo;</a>
+                    </li>
                 </div>
             </div>
+    </div>
             <div class="row sales">
                 <div class="col l-6 m-6 c-12 single_sale">
                     <div class="single_sale_imgae">

@@ -28,19 +28,40 @@
         Session::put('message','');
       }
     ?>
+    <!-- <div class="search_box">
+          <form action="">
+            {{ csrf_field() }}
+            <input type="text" placeholder="Tìm kiếm..." name="tukhoaproduct">
+            <button type="submit" name="search-items" value="Tìm kiếm sản phẩm"><i class="fa fa-search"></i></button>
+          </form>
+      </div> -->
+    <div class="row">
+            <label for="amount"> Sắp xếp theo</label>
+            <form id="form-sort">
+            {{ csrf_field() }}
+                <select name="sort_by" id="sort" class="form-control" form="form-sort">
+                    <option value="none">--Lọc--</option>
+                    <option value="tang_dan">--Giá tăng dần--</option>
+                    <option value="giam_dan">--Giá giảm dần--</option>
+                    <option value="kytu_az">Lọc theo tên A đến Z</option>
+                    <option value="kytu_za">Lọc theo tên Z đến A</option>
+                </select>
+            </form>
+        </div>
       <div class="table-responsive">
         <table class="table table-striped jambo_table bulk_action table_product_admin">
           <thead>
             <tr class="headings">
               <th class="column-title">STT</th>
-              <th class="column-title">Tên sản phẩm </th>
-              <th class="column-title">Ảnh </th>
-              <th class="column-title">Danh mục </th>
-              <th class="column-title">Nhãn hiệu </th>
-              <th class="column-title">Nhà cung cấp </th>
-              <th class="column-title">Giá bán </th>
-              <th class="column-title">Số lượng </th>
-              <th class="column-title">Trạng thái sản phẩm </th>
+              <th class="column-title">Tên sản phẩm</th>
+              <th class="column-title">Thư viện hình ảnh</th>
+              <th class="column-title">Ảnh</th>
+              <th class="column-title">Danh mục</th>
+              <th class="column-title">Nhãn hiệu</th>
+              <th class="column-title">Nhà cung cấp</th>
+              <th class="column-title">Giá bán</th>
+              <th class="column-title">Số lượng</th>
+              <th class="column-title">Trạng thái sản phẩm</th>
               <th class="column-title">Trạng thái</th>
               <th class="column-title">Hành động </th>
             </tr>
@@ -52,13 +73,13 @@
           <tr>
             <th scope="row">{{++$i}}</th>
             <td>{{$eachProduct->product_name}}</td>
-            <td><img src="{{asset('public/backEnd/images/'.$eachProduct->product_img)}}" height="100" width="100"</td>
+            <td><a href="{{URL::to('add-gallery/'.$eachProduct->product_id)}}">Thư viện ảnh</a></td>
+            <td><img src="{{asset('public/backEnd/images/'.$eachProduct->product_img)}}" height="100" width="100"</td>           
             <td>{{$eachProduct->category_name}}</td>
             <td>{{$eachProduct->brand_name}}</td>
             <td>{{$eachProduct->supplier_name}}</td>
-            <td>{{$eachProduct->product_price}}</td>
+            <td>{{number_format($eachProduct->product_price).' vnđ'}}</td>
             <td>{{$eachProduct->product_quanity}}</td>
-            <td>{{$eachProduct->product_desc}}</td>
             <td align="center">
             <?php
             if ($eachProduct->product_state == 0){ ?>
