@@ -39,6 +39,7 @@ Route::get('/add-category',[CategoryProduct::class,'addCategory']);
 Route::post('/save-category-product',[CategoryProduct::class,'saveCategory']);
 Route::get('/undisplay-category-product/{id}',[CategoryProduct::class,'unDisplayCategory']);
 Route::get('/display-category-product/{id}',[CategoryProduct::class,'displayCategory']);
+
 Route::get('/edit-category-product/{id}',[CategoryProduct::class,'editCategory']);
 Route::get('/delete-category-product/{id}',[CategoryProduct::class,'deleteCategory']);
 Route::post('/update-category/{id}',[CategoryProduct::class,'updateCategory']);
