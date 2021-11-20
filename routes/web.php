@@ -70,19 +70,20 @@ Route::get('/delete-supplier/{id}',[SupplierController::class,'deleteSupplier'])
 Route::post('/update-supplier/{id}',[SupplierController::class,'updateSupplier']);
 
 //product-admin
-Route::get('/show-product-admin',[ProductController::class,'index']);
-Route::get('/add-product-admin',[ProductController::class,'create']);
-Route::post('/save-product',[ProductController::class,'store']);
+
+Route::get('/show-product-admin',[ProductController::class,'showProduct']);
+Route::get('/add-product-admin',[ProductController::class,'addProduct']);
+Route::post('/save-product',[ProductController::class,'saveProduct']);
+Route::get('/edit-product/{id}',[ProductController::class,'editProduct']);
+Route::get('/delete-product/{id}',[ProductController::class,'deleteProduct']);
+Route::get('/search-product',[ProductController::class,'searchProduct']);
 Route::get('/unstatus-product/{id}',[ProductController::class,'unStatusProduct']);
 Route::get('/status-product/{id}',[ProductController::class,'statusProduct']);
 Route::get('/unstate-product/{id}',[ProductController::class,'unStateProduct']);
 Route::get('/state-product/{id}',[ProductController::class,'stateProduct']);
-Route::get('/delete-product/{id}',[ProductController::class,'destroy']);
-Route::get('/edit-product/{id}',[ProductController::class,'edit']);
-Route::post('/update-product/{id}',[ProductController::class,'update']);
 Route::get('/chi-tiet-san-pham/{id}',[ProductController::class,'detailProduct']);
-Route::get('/search-product-admin',[ProductController::class,'searchProductAdmin']);
 Route::post('/add-relative-to-cart',[ProductController::class,'AddRelativeProductCart']);
+
 //cart
 Route::get('/cart',[CartController::class,'showCart']);
 Route::post('/add-to-cart',[CartController::class,'AddProductCart']);
@@ -109,3 +110,7 @@ Route::post('/add-customer-account',[CheckoutController::class,'addCustomerAccou
 Route::post('/login-account',[CheckoutController::class,'loginAccount']);
 Route::get('/checkout',[CheckoutController::class,'checkOut']);
 Route::post('/save-checkout-customer',[CheckoutController::class,'saveCheckoutCustomer']);
+// đánh giá
+Route::group(['prefix' => 'ajax'], function(){
+    Route::post('/danh-giá', [RatingController::class,'saveRating']);
+});

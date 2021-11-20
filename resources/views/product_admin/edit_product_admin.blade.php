@@ -13,6 +13,19 @@
     </div>
     <div class="x_content">
         <br />
+        <?php
+      $message = Session::get('message');
+      if ($message)
+      {
+        ?>
+            <div class="alert alert-success" role="alert">
+             <?php echo $message; ?>
+             <i class="fa fa-times"></i>
+            </div>
+        <?php
+        Session::put('message','');
+      }
+    ?>
         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="{{URL::to('/update-product/'.$edit_product->product_id)}}" method="POST" enctype="multipart/form-data">
         
         {{ csrf_field() }}
@@ -34,7 +47,7 @@
                 <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Giá sản phẩm <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 ">
-                    <input type="text" id="last-name" name="product_price" required="required" class="form-control" value ="{{number_format($edit_product->product_price). ' vnđ'}}">
+                    <input type="text" id="last-name" name="product_price" required="required" class="form-control" value ="{{$edit_product->product_price}}">
                 </div>
             </div>
             <div class="item form-group">
@@ -53,7 +66,7 @@
                 <div class="col-md-6 col-sm-6 ">
                     <select name="category_id" class="form-control">
 
-                        @foreach($danhmuc as $key =>$muc)
+                        @foreach($cate_product as $key =>$muc)
                             <option value="{{$muc->category_id}}" {{ $muc->category_id== $edit_product->category_id ? 'selected' : '' }} >{{$muc->category_name}}</option>
                         @endforeach
                     </select>
@@ -64,7 +77,7 @@
                 <label class="control-form-label col-md-3 col-sm-3 label-align" >Nhãn hiệu</label>
                 <div class="col-md-6 col-sm-6 ">
                     <select name ="brand_id" class="form-control">
-                    @foreach($nhanhieu as $key =>$hieu)
+                    @foreach($brand_product as $key =>$hieu)
                         <option value="{{$hieu->brand_id}}" {{ $hieu->brand_id== $edit_product->brand_id ? 'selected' : '' }} >{{$hieu->brand_name}}</option>
                     @endforeach
                     </select>
@@ -74,7 +87,7 @@
                 <label class="control-form-label col-md-3 col-sm-3 label-align" >Nhà cung cấp</label>
                 <div class="col-md-6 col-sm-6 ">
                     <select name="supplier_id" class="form-control">
-                    @foreach($nhacungcap as $key =>$ncc)
+                    @foreach($supplier_product as $key =>$ncc)
                     <option value="{{$ncc->supplier_id}}" {{ $ncc->supplier_id== $edit_product->supplier_id ? 'selected' : '' }} >{{$ncc->supplier_name}}</option>
                     @endforeach
                     </select>

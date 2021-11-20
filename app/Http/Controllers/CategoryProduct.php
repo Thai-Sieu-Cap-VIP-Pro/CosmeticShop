@@ -8,14 +8,16 @@ use Session;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Product;
 use App\Models\CategoryProductModel;
+
 session_start();
 
 class CategoryProduct extends Controller
 {
     public function showCategory()
     {
+
        $all_category = DB::table('tbl_category_product')->paginate(3);
-        return view('category.show_category')->with('all_categoy', $all_category);
+        return view('category.show_category')->with('all_category', $all_category);
     }
 
     public function addCategory()
@@ -55,8 +57,6 @@ class CategoryProduct extends Controller
         $edit_category = DB::table('tbl_category_product')->where('category_id', $id)->first();
         $magage_category = view('category.edit_category')->with('edit_category', $edit_category);
         return view('admin_layout')->with('category.edit_category', $magage_category);
-       
-        //return view('category.edit_category');
     }
 
     
@@ -119,5 +119,4 @@ class CategoryProduct extends Controller
         ->orderBy('category_id', 'ASC')->get();       
         return view('category.search_category')->with('category', $danhmuc);
     }
-
 }

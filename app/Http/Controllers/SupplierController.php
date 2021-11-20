@@ -12,7 +12,7 @@ class SupplierController extends Controller
 {
     public function showSupplier()
     {
-       $all_supplier = DB::table('tbl_supplier')->get();
+       $all_supplier = DB::table('tbl_supplier')->paginate(5)->appends(request()->query());
         return view('supplier.show_supplier')->with('all_supplier', $all_supplier);
     }
 

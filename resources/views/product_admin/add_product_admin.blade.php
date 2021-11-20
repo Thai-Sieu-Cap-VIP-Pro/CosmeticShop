@@ -65,7 +65,7 @@
                 <label class="control-form-label col-md-3 col-sm-3 label-align" >Danh mục</label>
                 <div class="col-md-6 col-sm-6 ">
                     <select name="category_id" class="form-control">
-                        @foreach($danhmuc as $key =>$muc)
+                        @foreach($cate_product as $key =>$muc)
                         <option value="{{$muc->category_id}}">{{$muc->category_name}}</option>
                         @endforeach
                     </select>
@@ -75,7 +75,7 @@
                 <label class="control-form-label col-md-3 col-sm-3 label-align" >Nhãn hiệu</label>
                 <div class="col-md-6 col-sm-6 ">
                     <select name ="brand_id" class="form-control">
-                    @foreach($nhanhieu as $key =>$hieu)
+                    @foreach($brand_product as $key =>$hieu)
                         <option value="{{$hieu->brand_id}}">{{$hieu->brand_name}}</option>
                     @endforeach
                     </select>
@@ -85,7 +85,7 @@
                 <label class="control-form-label col-md-3 col-sm-3 label-align" >Nhà cung cấp</label>
                 <div class="col-md-6 col-sm-6 ">
                     <select name="supplier_id" class="form-control">
-                    @foreach($nhacungcap as $key =>$ncc)
+                    @foreach($supplier_product as $key =>$ncc)
                         <option value="{{$ncc->supplier_id}}">{{$ncc->supplier_name}}</option>
                     @endforeach
                     </select>
