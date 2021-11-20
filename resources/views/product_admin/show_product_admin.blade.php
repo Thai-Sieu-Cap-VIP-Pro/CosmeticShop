@@ -13,7 +13,22 @@
       <div class="clearfix"></div>
  
     </div>
-    <div class="search_box">
+ 
+    <div class="x_content">
+    <?php
+      $message = Session::get('message');
+      if ($message)
+      {
+        ?>
+            <div class="alert alert-success" role="alert">
+             <?php echo $message; ?>
+             <i class="fa fa-times"></i>
+            </div>
+        <?php
+        Session::put('message','');
+      }
+    ?>
+      <div class="search_box">
                   <form action="{{URL::to('/search-product')}}"  method="GET">
                       {{csrf_field()}}
                   <input type="text" id="keywords" placeholder="Tìm kiếm ..." name="tukhoa">
@@ -21,9 +36,6 @@
                   <button type="submit" name="search-items" value="Tìm kiếm"><i class="fa fa-search"></i></button>
                   </form>
     </div> 
-
-    <div class="x_content">
-
     <div class="row">      
           <label for="amount">Sắp xếp theo</label>
           <form id="form-sort">
@@ -86,18 +98,16 @@
           </td>
         </tr>  
         @endforeach
-
-=======
           @foreach ($all_product as $keyProduct => $eachProduct)
           <tr>
             <th scope="row">{{++$i}}</th>
             <td>{{$eachProduct->product_name}}</td>
-            <td><a href="{{URL::to('add-gallery/'.$eachProduct->product_id)}}">Thư viện ảnh</a></td>
-            <td><img src="{{asset('public/backEnd/images/'.$eachProduct->product_img)}}" height="100" width="100"</td>           
+            <td><a href="{{URL::to('add-gallery/'.$eachProduct->product_id)}}">Thư viện ảnh</a></td> 
+            <td><img src="{{asset('public/backEnd/images/'.$eachProduct->product_img)}}" height="100" width="100"</td>            
             <td>{{$eachProduct->category_name}}</td>
             <td>{{$eachProduct->brand_name}}</td>
             <td>{{$eachProduct->supplier_name}}</td>
-            <td>{{number_format($eachProduct->product_price).' vnđ'}}</td>
+            <td>{{$eachProduct->product_price}}</td>
             <td>{{$eachProduct->product_quanity}}</td>
             <td align="center">
             <?php

@@ -47,47 +47,16 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
-        $sort_by = $request->sort_by;
-        
-        if($sort_by == 'giam_dan'){
-            $sort_field = 'product_price';
-            $sort_order = 'DESC';
-        }elseif($sort_by=='tang_dan'){
-            $sort_field = 'product_price';
-            $sort_order = 'ASC';               
-        }elseif($sort_by=='kytu_za'){
-            $sort_field = 'product_name';
-            $sort_order = 'DESC';        
-        }elseif($sort_by=='kytu_az'){
-            $sort_field = 'product_name';
-            $sort_order = 'ASC';                
-        }else{
-            $sort_field = 'product_id';
-            $sort_order = 'ASC';
-        }
+   
 
-        
-        $all_product = DB::table('tbl_product')->join('tbl_category_product','tbl_category_product.category_id', '=', 'tbl_product.category_id')
-        ->join('tbl_brand','tbl_brand.brand_id', '=', 'tbl_product.brand_id')
-        ->join('tbl_supplier','tbl_supplier.supplier_id', '=', 'tbl_product.supplier_id')
-        ->orderBy($sort_field, $sort_order)->get();
-        return view('product_admin.show_product_admin') ->with(compact('all_product', $all_product));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+ 
+    public function addProduct()
     {
-        $danhmuc = DB::table('tbl_category_product')->orderBy('category_id','DESC')->get();
-        $nhanhieu = DB::table('tbl_brand')->orderBy('brand_id', 'DESC')->get();
-        $nhacungcap = DB::table('tbl_supplier')->orderBy('supplier_id', 'DESC')->get();
-        return view('product_admin.add_product_admin')->with(compact('danhmuc','nhanhieu', 'nhacungcap'));
-    }
+        $cate_product = DB::table('tbl_category_product')->orderBy('category_id','DESC')->get();
+        $brand_product = DB::table('tbl_brand')->orderBy('brand_id', 'DESC')->get();
+        $supplier_product = DB::table('tbl_supplier')->orderBy('supplier_id', 'DESC')->get();
+        return view('product_admin.add_product_admin')->with(compact('cate_product','brand_product', 'supplier_product'));
+    } 
 
     public function saveImage($image){
         $path = 'public/backEnd/images';
@@ -104,7 +73,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function saveProduct(Request $request)
     {
         $data = array();
         $data['product_name'] = $request->product_name;
@@ -156,7 +125,7 @@ class ProductController extends Controller
     public function unStateProduct($id)
     {
         DB::table('tbl_product')->where('product_id', $id)->update(['product_state'=>0]);
-        Session::put('message','Bạn đã ẩn danh mục thành công');
+        Session::put('message','Bạn đã ẩn sản phẩm thành công');
         return redirect('/show-product-admin');
     }
 
@@ -303,45 +272,85 @@ class ProductController extends Controller
     
 =======
         DB::table('tbl_product')->where('product_id', $id)->update(['product_state'=>1]);
-        Session::put('message','Bạn đã hiện danh mục thành công');
+        Session::put('message','Bạn đã hiện sản phẩm thành công');
         return redirect('/show-product-admin');
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+
+
+    public function editProduct($id)
     {
-       
+        $cate_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
+        $brand_product = DB::table('tbl_brand')->orderby('brand_id','desc')->get();
+        $supplier_product = DB::table('tbl_supplier')->orderby('supplier_id','desc')->get();
+        $edit_product = DB::table('tbl_product')->where('product_id', $id)->first();
+        $manage_product = view('product_admin.edit_product_admin')->with(compact('edit_product','cate_product','brand_product','supplier_product'));
+        return view('admin_layout')->with('product_admin.edit_product_admin', $manage_product);
+        
     }
 
+    public function deleteProduct($id)
+    {
+        $product = DB::table('tbl_product')->where('product_id', $id)->first();
+        $path = 'public/backEnd/images/'.$product->product_img;
+        if(file_exists($path)){
+            unlink($path);
+        }
+        $delete_product = DB::table('tbl_product')->where('product_id', $id)->delete();
+        Session::put('message','Xóa sản phẩm thành công');
+       return redirect('/show-product-admin');
+    }
+
+
+    public function searchProduct(Request $request) {
+        
+        $search = $request->tukhoa;       
+        $all_product = DB::table('tbl_product')
+       ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')
+       ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')
+       ->join('tbl_supplier','tbl_supplier.supplier_id','=','tbl_product.supplier_id')->where('product_name', 'like', '%'.$search.'%')
+       ->paginate(4)->appends(request()->query());
+
+       return view('product_admin.show_product_admin')->with('all_product', $all_product);  
+        
+    }
+
+    public function index(Request $request)
+    {
+        $sort_by = $request->sort_by;
+        
+        if($sort_by == 'giam_dan'){
+            $sort_field = 'product_price';
+            $sort_order = 'DESC';
+        }elseif($sort_by=='tang_dan'){
+            $sort_field = 'product_price';
+            $sort_order = 'ASC';               
+        }elseif($sort_by=='kytu_za'){
+            $sort_field = 'product_name';
+            $sort_order = 'DESC';        
+        }elseif($sort_by=='kytu_az'){
+            $sort_field = 'product_name';
+            $sort_order = 'ASC';                
+        }else{
+            $sort_field = 'product_id';
+            $sort_order = 'ASC';
+        }
+
+        
+        $all_product = DB::table('tbl_product')->join('tbl_category_product','tbl_category_product.category_id', '=', 'tbl_product.category_id')
+        ->join('tbl_brand','tbl_brand.brand_id', '=', 'tbl_product.brand_id')
+        ->join('tbl_supplier','tbl_supplier.supplier_id', '=', 'tbl_product.supplier_id')
+        ->orderBy($sort_field, $sort_order)->get();
+        return view('product_admin.show_product_admin') ->with(compact('all_product', $all_product));
+    }
+    
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $edit_product = DB::table('tbl_product')->where('product_id', $id)->first();
-        $danhmuc = DB::table('tbl_category_product')->orderBy('category_id','DESC')->get();
-        $nhanhieu = DB::table('tbl_brand')->orderBy('brand_id', 'DESC')->get();
-        $nhacungcap = DB::table('tbl_supplier')->orderBy('supplier_id', 'DESC')->get();
-        $magage_product = view('product_admin.edit_product_admin')->with(compact('edit_product','danhmuc','nhanhieu','nhacungcap'));
-        return view('admin_layout')->with('product_admin.edit_product_admin', $magage_product);
-    }
 
-    
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */   
-    public function update(Request $request, $id)
+    public function updateProduct(Request $request, $id)
     {     
         $product = array();       
         $image = $request->file('product_image');
@@ -364,24 +373,6 @@ class ProductController extends Controller
         return redirect('/show-product-admin');   
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $product = DB::table('tbl_product')->where('product_id', $id)->first();
-        $path = 'public/backEnd/images/'.$product->product_img;
-        if(file_exists($path)){
-            unlink($path);
-        }
-        $delete_product = DB::table('tbl_product')->where('product_id', $id)->delete();
-        Session::put('message','Xóa sản phẩm thành công');
-       return redirect('/show-product-admin');
-    }
 
     // end pages admin
     public function detailProduct($id){
@@ -406,11 +397,6 @@ class ProductController extends Controller
         
         return view('pages.product_detail.show_product_detail')->with('brand', $thuonghieu)->with('supplier', $nhacungcap)
         ->with('product_details', $detail_product)->with('product_relative', $relative_product)->with('gallery', $gallery);
-    }  
-    
-    public function searchProductAdmin(Request $request){
-        
-        
     }  
 
     public function AddRelativeProductCart(Request $request){

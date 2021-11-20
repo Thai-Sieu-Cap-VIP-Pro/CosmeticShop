@@ -19,7 +19,7 @@
     <!-- <link rel="stylesheet" href="{{asset('public/frontEnd/css/cart_ajax.css')}}"> -->
     <link rel="stylesheet" href="{{asset('public/frontEnd/css/login.css')}}">
     <link rel="stylesheet" href="{{asset('public/frontEnd/css/checkout.css')}}">
-    
+    <link rel="stylesheet" href="{{asset('public/frontEnd/css/comment.css')}}">
 
     <script type="text/javascript">
         $(document).ready(function(){
@@ -45,7 +45,7 @@
             
             <div class="search_box">
 
-=======
+
                 <form action="{{URL::to('/tim-kiem')}}" autocomplete="off" method ="GET">
                     {{ csrf_field() }}
                 <input type="text" id="keywords" placeholder="Tìm kiếm..." name="tukhoa">
@@ -276,7 +276,7 @@
         }); 
     </script>
 
-    
+@yield('script')  
 
 </body>
 

@@ -70,9 +70,10 @@
             <div class="form-group item">
                 <label class="control-form-label col-md-3 col-sm-3 label-align" >Danh mục</label>
                 <div class="col-md-6 col-sm-6 ">
-                    <select name="produce_cate" class="form-control">
-                        @foreach($cate_product as $key => $cate)
-                        <option value="{{$cate->category_id}}">{{$cate->category_name}}</option>
+                    <select name="category_id" class="form-control">
+                        @foreach($cate_product as $key =>$muc)
+                        <option value="{{$muc->category_id}}">{{$muc->category_name}}</option>
+
                         @endforeach
                     </select>
                 </div>
@@ -80,10 +81,11 @@
             <div class="form-group item">
                 <label class="control-form-label col-md-3 col-sm-3 label-align" >Nhãn hiệu</label>
                 <div class="col-md-6 col-sm-6 ">
-                    <select name="produce_brand" class="form-control">
-                        @foreach($brand_product as $key => $brand)
-                        <option value="{{$brand->brand_id}}">{{$brand->brand_name}}</option>
-                        @endforeach
+
+                    <select name ="brand_id" class="form-control">
+                    @foreach($brand_product as $key =>$hieu)
+                        <option value="{{$hieu->brand_id}}">{{$hieu->brand_name}}</option>
+                    @endforeach
                     </select>
                 </div>
             </div>
@@ -91,10 +93,10 @@
                 <label class="control-form-label col-md-3 col-sm-3 label-align" >Nhà cung cấp</label>
                 <div class="col-md-6 col-sm-6 ">
 
-                    <select name="produce_supplier" class="form-control">
-                        @foreach($supplier_product as $key => $supplier)
-                        <option value="{{$supplier->supplier_id}}">{{$supplier->supplier_name}}</option>
-                        @endforeach
+                    <select name="supplier_id" class="form-control">
+                    @foreach($supplier_product as $key =>$ncc)
+                        <option value="{{$ncc->supplier_id}}">{{$ncc->supplier_name}}</option>
+                    @endforeach
                     </select>
                 </div>
             </div>
@@ -103,7 +105,6 @@
                 <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Giảm giá</label>
                 <div class="col-md-6 col-sm-6 ">
                     <input type="text" id="last-name" required="required" class="form-control" name="product_discount">
-=======
                 <label class="col-form-label col-md-3 col-sm-3 label-align">Tình trạng sản phẩm</label>
                 <div class="col-md-6 col-sm-6 ">
                     <div id="gender" class="btn-group" data-toggle="buttons">
@@ -127,7 +128,6 @@
                         </label>
                         <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
                             <input type="radio" name="product_status" value="0" class="join-btn"> Hết hàng
-=======
                             <input type="radio" name="product_state" value="0" class="join-btn"> &nbsp; Ẩn &nbsp;
                         </label>
                         <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
