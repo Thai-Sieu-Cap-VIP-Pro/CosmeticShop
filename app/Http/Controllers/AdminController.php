@@ -13,6 +13,7 @@ class AdminController extends Controller
     public function index()
     {
         return view('admin_login');
+        //echo "abcd";
     }
 
     public function show_dasdboard()

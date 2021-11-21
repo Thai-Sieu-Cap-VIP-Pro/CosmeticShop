@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Session;
+use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 session_start();
 
@@ -12,7 +13,7 @@ class BrandController extends Controller
 {
     public function showBrand()
     {
-       $all_brand = DB::table('tbl_brand')->get();
+       $all_brand = DB::table('tbl_brand')->paginate(5)->appends(request()->query());
         return view('brand.show_brand')->with('all_brand', $all_brand);
     }
 
@@ -76,4 +77,12 @@ class BrandController extends Controller
         Session::put('message','Xóa nhãn hiệu sản phẩm thành công');
        return redirect('/show-brand');
     }
+
+    public function searchBrandAdmin(Request $request){
+        $timkiem = $request->tukhoabrand;
+        $thuonghieu = DB::table('tbl_brand')->where('brand_name', 'like','%'.$timkiem.'%')
+        ->orderBy('brand_id', 'ASC')->get();       
+        return view('brand.search_brand')->with('brand', $thuonghieu);
+    }
+
 }
