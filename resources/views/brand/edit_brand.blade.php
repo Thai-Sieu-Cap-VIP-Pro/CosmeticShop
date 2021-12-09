@@ -4,10 +4,11 @@
     <div class="x_title">
         <h2 class="admin_part_heading">Cập nhật nhãn hiệu sản phẩm </h2>
         <ul class="nav navbar-right panel_toolbox">
-            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-            </li>
-           
-            <li><a class="close-link"><i class="fa fa-close"></i></a>
+            <li>
+                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>          
+            <li>
+                <a class="close-link"><i class="fa fa-close"></i></a>
             </li>
         </ul>
         <div class="clearfix"></div>
@@ -15,7 +16,6 @@
   
     <div class="x_content">
         <br />
-
         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="{{URL::to('/update-brand/'.$edit_brand->brand_id)}}" method ="POST">
         {{ csrf_field() }}
             <div class="item form-group">
@@ -29,8 +29,7 @@
                 <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Mô tả nhãn hiệu <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 ">
-                    <textarea id="first-name" required="required" class="form-control "  cols="30" rows="5"  name="brand_desc">{{$edit_brand->brand_desc}}</textarea>
-                    
+                    <textarea id="first-name" required="required" class="form-control "  cols="30" rows="5"  name="brand_desc">{{$edit_brand->brand_desc}}</textarea>              
                 </div>
             </div>
           

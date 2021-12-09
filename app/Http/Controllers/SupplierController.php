@@ -27,12 +27,10 @@ class SupplierController extends Controller
        $data['supplier_name'] = $request->supplier_name;
        $data['supplier_desc'] = $request->supplier_desc;
        $data['supplier_country'] = $request->supplier_country;
-       $data['supplier_status'] = $request->supplier_status;
-       
+       $data['supplier_status'] = $request->supplier_status;    
        DB::table('tbl_supplier')->insert($data);
        Session::put('message','Thêm nhà cung cấp thành công');
        return redirect('/add-supplier');
-
     }
 
     public function unDisplaySupplier($id)
@@ -59,15 +57,14 @@ class SupplierController extends Controller
     public function updateSupplier(Request $request, $id)
     {
         $supplier = array();
-        //$brand['brand_id'] = $id;
         $supplier['supplier_name'] = $request->supplier_name;
         $supplier['supplier_desc'] = $request->supplier_desc;
         $supplier['supplier_country'] = $request->supplier_country;
-        //$brand->save();
         DB::table('tbl_supplier')->where('supplier_id', $id)->update($supplier);
         Session::put('message','Cập nhật nhà cung cấp thành công');
         return redirect('/show-supplier');
     }
+    
     public function deleteSupplier($id)
     {
         $edit_supplier = DB::table('tbl_supplier')->where('supplier_id', $id)->delete();

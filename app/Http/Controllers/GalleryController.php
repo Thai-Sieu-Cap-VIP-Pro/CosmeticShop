@@ -85,16 +85,13 @@ class GalleryController extends Controller
                         <td colspan="4">Sản phẩm chưa có thư viện ảnh</td>                      
                     </tr>                 
                 ';
-        }
-        
+        }      
         $output.='                  
                     </tbody>
                     </table>
                     <form>
-                ';
-        
-        echo $output;
-       
+                ';      
+        echo $output;     
     }
 
     public function update_gallery_name(Request $request){
@@ -125,7 +122,6 @@ class GalleryController extends Controller
                 unlink('public/backEnd/images/'.$gallery->gallery_img);
                 $gallery->gallery_img =  $new_image_name;
                 $gallery->save();
-            }
         }
-    
+    }  
 }
