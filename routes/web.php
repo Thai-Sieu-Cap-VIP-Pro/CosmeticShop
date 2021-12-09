@@ -9,6 +9,10 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\RatingController;
+use App\Http\Controllers\ReplyController;
+use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\MailController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -58,8 +62,15 @@ Route::post('/update-brand/{id}',[BrandController::class,'updateBrand']);
 Route::get('/search-brand-admin',[BrandController::class,'searchBrandAdmin']);
 //Route::get('/update-brand/{id}', 'BrandController@updateBrand');
 
-
-
+//đánh giá
+Route::post('/danh-gia/{id}', [RatingController::class,'saveRating']);
+Route::get('/show-rating',[RatingController::class,'showRating']);
+Route::get('/delete-rating/{id}',[RatingController::class,'deleteRating']);
+Route::post('/reply-comment', [RatingController::class,'replyComment']);
+//Trả lời bình luận
+Route::post('/tra-loi/{id}', [ReplyController::class,'saveReply']);
+Route::get('/undisplay-rating/{id}',[RatingController::class,'unDisplayRating']);
+Route::get('/display-rating/{id}',[RatingController::class,'displayRating']);
 //supplier
 Route::get('/show-supplier',[SupplierController::class,'showSupplier']);
 Route::get('/add-supplier',[SupplierController::class,'addSupplier']);
@@ -75,36 +86,26 @@ Route::post('/update-supplier/{id}',[SupplierController::class,'updateSupplier']
 Route::get('/show-product-admin',[ProductController::class,'showProduct']);
 Route::get('/add-product-admin',[ProductController::class,'addProduct']);
 Route::post('/save-product',[ProductController::class,'saveProduct']);
-Route::get('/undisplay-product/{id}',[ProductController::class,'unDisplayProduct']);
-Route::get('/display-product/{id}',[ProductController::class,'displayProduct']);
+
 Route::get('/edit-product/{id}',[ProductController::class,'editProduct']);
 Route::get('/delete-product/{id}',[ProductController::class,'deleteProduct']);
-Route::post('/update-product/{id}',[ProductController::class,'updateProduct']);
 Route::get('/search-product',[ProductController::class,'searchProduct']);
 
-
-=======
-Route::get('/show-product-admin',[ProductController::class,'index']);
-Route::get('/add-product-admin',[ProductController::class,'create']);
-Route::post('/save-product',[ProductController::class,'store']);
 Route::get('/unstatus-product/{id}',[ProductController::class,'unStatusProduct']);
 Route::get('/status-product/{id}',[ProductController::class,'statusProduct']);
 Route::get('/unstate-product/{id}',[ProductController::class,'unStateProduct']);
 Route::get('/state-product/{id}',[ProductController::class,'stateProduct']);
-Route::get('/delete-product/{id}',[ProductController::class,'destroy']);
-Route::get('/edit-product/{id}',[ProductController::class,'edit']);
-Route::post('/update-product/{id}',[ProductController::class,'update']);
 Route::get('/chi-tiet-san-pham/{id}',[ProductController::class,'detailProduct']);
-Route::get('/search-product-admin',[ProductController::class,'searchProductAdmin']);
 Route::post('/add-relative-to-cart',[ProductController::class,'AddRelativeProductCart']);
+
+Route::post('/update-product/{id}',[ProductController::class,'updateProduct']);
+
 
 //cart
 Route::get('/cart',[CartController::class,'showCart']);
 Route::post('/add-to-cart',[CartController::class,'AddProductCart']);
 Route::get('/delete-to-cart/{id}',[CartController::class,'DeleteProductCart']);
 Route::post('/update-cart-quantity',[CartController::class,'UpdateQuantityCart']);
-Route::get('/increment-cart-quantity/{id}',[CartController::class,'incrementQuantityCart']);
-Route::get('/decrement-cart-quantity/{id}',[CartController::class,'decrementQuantityCart']);
 
 //gallery
 Route::get('/add-gallery/{id}',[GalleryController::class,'add_gallery']);
@@ -115,7 +116,6 @@ Route::post('/delete-gallery',[GalleryController::class,'delete_gallery']);
 Route::post('/update-gallery',[GalleryController::class,'update_gallery']);
 //Login
 Route::get('/login-checkout',[CheckoutController::class,'loginCheckout']);
-
 Route::get('/logout-checkout',[CheckoutController::class,'logoutCheckout']);
 Route::get('/register-form',[CheckoutController::class,'registerCheckout']);
 Route::get('/login-checkout-home',[CheckoutController::class,'loginCheckoutHome']);
@@ -124,3 +124,16 @@ Route::post('/add-customer-account',[CheckoutController::class,'addCustomerAccou
 Route::post('/login-account',[CheckoutController::class,'loginAccount']);
 Route::get('/checkout',[CheckoutController::class,'checkOut']);
 Route::post('/save-checkout-customer',[CheckoutController::class,'saveCheckoutCustomer']);
+Route::post('/address',[CheckoutController::class,'selectAddress']);
+Route::get('/purchase-history',[CheckoutController::class,'purchaseHistory']);
+Route::post('/show-purchase-order-details',[CheckoutController::class,'showPurchaseOrderDetail']);
+//discount
+Route::get('/show-discount',[DiscountController::class,'showDiscount']);
+Route::get('/add-discount',[DiscountController::class,'create']);
+Route::get('/save-discount',[DiscountController::class,'saveDiscount']);
+Route::get('/delete-discount/{id}',[DiscountController::class,'deleteDiscount']);
+Route::get('/edit-discount/{id}',[DiscountController::class,'editDiscount']);
+Route::post('/update-discount/{id}',[DiscountController::class,'updateDiscount']);
+Route::get('/discount/{code}',[DiscountController::class,'getDiscountInfo']);
+//email
+Route::get('/coupon/{percent}/{quantity}/{desc}/{code}',[MailController::class,'sendCoupon']);

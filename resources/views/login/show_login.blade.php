@@ -1,8 +1,7 @@
 @extends('frontLayout')
 @section('frontEndContent')
 <div class="row login">
-    <!--login area start-->
-    <!--login area start-->
+
     <div class="col-lg-6 col-md-6">
        <div class="account_form">
            <h2>Đăng nhập</h2>
@@ -26,11 +25,11 @@
                    <a href="#">Quên mật khẩu?</a>
                    
                </div>
-             
 
            </form>
         </div>    
    </div>
   
 </div>
+
 @endsection

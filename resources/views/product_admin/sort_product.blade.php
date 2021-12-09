@@ -65,25 +65,8 @@
           </td>
         </tr>
         @endforeach
-        
-        <!-- Lọc sản phẩm -->
-        <!-- <div class="row">
-          <div class="col-md-4">
-            <label for="amount">Sắp xếp theo</label>
-            <form>
-              @csrf
-            <select name="sort" id="sort" class="form-control">
-                <option value="{{Request::url()}}?sort_by=none">--Lọc--</option>
-                <option value="{{Request::url()}}?sort_by=tang_dan">--Giá tăng dần</option>
-                <option value="{{Request::url()}}?sort_by=giam_dan">--Giá giảm dần--</option>
-                <option value="{{Request::url()}}?sort_by=kytu_az">--Lọc theo tên A đến Z--</option>
-                <option value="{{Request::url()}}?sort_by=kytu_za">--Lọc theo tên Z đến A--</option>
-            </select>
-            </form>
-          </div>
-        </div> -->
-        <!-- End lọc sản phẩm -->
-        
+  
+
           </tbody>
         </table>
         

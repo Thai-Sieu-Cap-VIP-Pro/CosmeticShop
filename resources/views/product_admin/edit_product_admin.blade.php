@@ -17,22 +17,20 @@
 
         <?php
             $message = Session::get('message');
-            if ($message) {
+            if ($message)
+            {
                 ?>
                     <div class="alert alert-success" role="alert">
-                        Cập nhật sản phẩm thành công
+                    <?php echo $message; ?>
+                    <i class="fa fa-times"></i>
                     </div>
                 <?php
                 Session::put('message','');
             }
-        ?>
-    </div>
-    <div class="x_content">
-        <br />
-        @foreach($edit_product as $key => $pro)
-        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="{{URL::to('/update-product/'.$pro->product_id)}}" method="POST" enctype="multipart/form-data">
-                {{ csrf_field() }}
-
+         ?>
+        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="{{URL::to('/update-product/'.$edit_product->product_id)}}" method="POST" enctype="multipart/form-data">
+        
+        {{ csrf_field() }}
             <div class="item form-group">
                 <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Tên sản phẩm <span class="required">*</span>
                 </label>
@@ -53,8 +51,8 @@
                 <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Giá sản phẩm <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 ">
-                    <input type="text" id="last-name" name="product_price" required="required" class="form-control" value="{{$pro->product_price}}">
 
+                    <input type="text" id="last-name" name="product_price" required="required" class="form-control" value ="{{$edit_product->product_price}}">
                 </div>
             </div>
             <div class="item form-group">
@@ -73,13 +71,8 @@
                 <div class="col-md-6 col-sm-6 ">
                     <select name="category_id" class="form-control">
 
-                        @foreach($cate_product as $key => $cate)
-                            @if($cate->category_id==$pro->category_id)
-                            <option selected value="{{$cate->category_id}}">{{$cate->category_name}}</option>
-                            @else
-                            <option value="{{$cate->category_id}}">{{$cate->category_name}}</option>
-                            @endif
-=======
+                        @foreach($cate_product as $key =>$muc)
+                            <option value="{{$muc->category_id}}" {{ $muc->category_id== $edit_product->category_id ? 'selected' : '' }} >{{$muc->category_name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -88,16 +81,10 @@
             <div class="form-group item">
                 <label class="control-form-label col-md-3 col-sm-3 label-align" >Nhãn hiệu</label>
                 <div class="col-md-6 col-sm-6 ">
-
-                    <select name="brand_id" class="form-control">
-                        @foreach($brand_product as $key => $brand)
-                            @if($brand->brand_id==$pro->brand_id)
-                            <option selected value="{{$brand->brand_id}}">{{$brand->brand_name}}</option>
-                            @else
-                            <option value="{{$brand->brand_id}}">{{$brand->brand_name}}</option>
-                            @endif
-                        @endforeach
-
+                    <select name ="brand_id" class="form-control">
+                    @foreach($brand_product as $key =>$hieu)
+                        <option value="{{$hieu->brand_id}}" {{ $hieu->brand_id== $edit_product->brand_id ? 'selected' : '' }} >{{$hieu->brand_name}}</option>
+                    @endforeach
                     </select>
                 </div>
             </div>
@@ -105,33 +92,12 @@
                 <label class="control-form-label col-md-3 col-sm-3 label-align" >Nhà cung cấp</label>
                 <div class="col-md-6 col-sm-6 ">
                     <select name="supplier_id" class="form-control">
-
-                        @foreach($supplier_product as $key => $supplier)
-                            @if($supplier->supplier_id==$pro->supplier_id)
-                            <option selected value="{{$supplier->supplier_id}}">{{$supplier->supplier_name}}</option>
-                            @else
-                            <option value="{{$supplier->supplier_id}}">{{$supplier->supplier_name}}</option>
-                            @endif
-                        @endforeach
+                    @foreach($supplier_product as $key =>$ncc)
+                    <option value="{{$ncc->supplier_id}}" {{ $ncc->supplier_id== $edit_product->supplier_id ? 'selected' : '' }} >{{$ncc->supplier_name}}</option>
+                    @endforeach
                     </select>
                 </div>
             </div>
-            <div class="item form-group">
-                <label class="col-form-label col-md-3 col-sm-3 label-align">Tình trạng</label>
-                <div class="col-md-6 col-sm-6 ">
-                    <div id="gender" class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-secondary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                            <input type="radio" name="product_status" value="1" class="join-btn"> &nbsp; Còn hàng &nbsp;
-                        </label>
-                        <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                            <input type="radio" name="product_status" value="0" class="join-btn"> Hết hàng
-                        </label>
-                        
-                    </div>
-                </div>
-            </div>
-=======
-  
             <div class="item form-group">
                 <label class="col-form-label col-md-3 col-sm-3 label-align">Ngày hết hạn <span class="required">*</span>
                 </label>
@@ -151,6 +117,7 @@
                 </div>
             </div>
             <div class="ln_solid"></div>
+            
             <div class="item form-group">
                 <div class="col-md-6 col-sm-6 offset-md-3">
                     <button class="btn btn-primary" type="submit">Cập nhật</button>

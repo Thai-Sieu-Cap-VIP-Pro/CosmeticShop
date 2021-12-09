@@ -4,17 +4,14 @@
     <div class="x_title">
         <h2 class="admin_part_heading">Cập nhật danh mục sản phẩm mới </h2>
         <ul class="nav navbar-right panel_toolbox">
-            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-            </li>
-            <li><a class="close-link"><i class="fa fa-close"></i></a>
-            </li>
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+            <li><a class="close-link"><i class="fa fa-close"></i></a></li>
         </ul>
         <div class="clearfix"></div>
     </div>
   
     <div class="x_content">
-        <br />
-       
+        <br /> 
         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST" action="{{URL::to('/update-category/'.$edit_category->category_id)}}">
                 {{ csrf_field() }}
             <div class="item form-group">
@@ -30,8 +27,7 @@
                 <div class="col-md-6 col-sm-6 ">
                     <textarea id="first-name" required="required" class="form-control " cols="30" rows="5" name="category_product_desc">{{$edit_category->category_desc}}</textarea>
                 </div>
-            </div>
-          
+            </div>         
             <div class="ln_solid"></div>
             <div class="item form-group">
                 <div class="col-md-6 col-sm-6 offset-md-3">
@@ -40,8 +36,7 @@
                     <a class="btn btn-primary" href="{{URL::to('/show-category')}}" type="button">Danh sách danh mục</a>
                 </div>
             </div>
-        </form>
-      
+        </form>    
     </div>
 </div>
 @endsection
