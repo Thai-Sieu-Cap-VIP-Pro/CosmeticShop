@@ -4,16 +4,13 @@
 
 .header_search .header_cart {
    position: relative;
-   height: 0;
-   margin-left: 30px;
 }
+   
 
 .header_search .header_cart a{
     text-decoration: none;
     color: black;
     position: relative;
-    left: 1200px;
-    top: -60px;
 }
 
 .header_search .header_cart a p {
@@ -39,8 +36,7 @@
   
 }
 
-.header_search .search_box  {
-    margin-right: 150px;
-}
+
+
 
 

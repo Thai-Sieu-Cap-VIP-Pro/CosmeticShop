@@ -1,6 +1,13 @@
 
 @extends('frontLayout')
 @section('frontEndContent')
+<div class="breadcums row">
+    <ul>
+        <li>Home</li>
+        <li><i class="fa fa-angle-right"></i></li>
+        <li>Sản phẩm</li>
+    </ul>
+</div>
   <!-- start slide and sub image -->
     <div class="row slide">
         <div class="col-sm-3 sub_image">

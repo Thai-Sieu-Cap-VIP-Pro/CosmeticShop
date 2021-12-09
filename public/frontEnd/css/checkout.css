@@ -193,8 +193,9 @@
 }
 
 .order_table {
-    box-shadow: 0px 0px 5px gray;
+	border: 1px solid rgb(214, 214, 214);
     border-radius: 5px;
+	padding: 20px;
 }
 .payment_method {
     margin-top: 20px;

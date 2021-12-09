@@ -1,5 +1,12 @@
 @extends('frontLayout')
 @section('frontEndContent')
+<div class="breadcums row">
+    <ul>
+        <li>Home</li>
+        <li><i class="fa fa-angle-right"></i></li>
+        <li>Thanh toán</li>
+    </ul>
+</div>
 <div class="row" id="new_shipping">
     <div class="overlay_shipping" onclick="overlay_click()">
 
@@ -68,20 +75,28 @@
     <div class="col-lg-6 col-md-6">
     
             <h3 class="checkout_heading">Thông tin nhận hàng</h3>
-            <select name="shipping_address" id="">
+          <?php
+              $i = 1;
+          ?>
                 @foreach ($shipping_list as $key_shipping => $item_shipping)
-                <option value="{{$item_shipping->shipping_id}}">   
+                <?php
+                   $i++;
+                ?>
+                <input type="radio" name="shipping_selected" id="{{$i}}" class="radio_shipping" value="{{$item_shipping->shipping_id}}" <?php if ($i ==2) echo "checked='checked'" ?>> 
+                <label for="{{$i}}" class="lb_radio">
                     <div class="row">
                         <div class="shipping_item">
                             <p class="shipping_item_name">{{$item_shipping->shipping_name}}</p>
                             <p class="shipping_item_phone"><i class="fas fa-phone"></i> (+84){{$item_shipping->shipping_phone}}</p>
                             <p class="shipping_item_address"><i class="fas fa-map-marker-alt"></i> {{$item_shipping->shipping_district}}</p>
+                            <?php if ($i ==2) echo "<p class='default_shipping'>(Mặc định)</p>" ?>
                         </div>
                     </div>
-                </option>
+                </label>
+                <br>
                 @endforeach
               
-              </select>
+          
          
           <div class="row">
               <div class="add_new_shipping" onclick="addShipping()">

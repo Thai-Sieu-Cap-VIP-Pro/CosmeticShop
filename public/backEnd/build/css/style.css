@@ -74,3 +74,44 @@ display: flex;
     background: linear-gradient(to right, rgb(15, 15, 15) 0%, #fffefe  100%);
 
 }
+
+.top_product_image {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.top_product_image img {
+    width: 100%;
+    height: 100%;
+}
+
+
+.media  {
+    align-items: center;
+}
+
+.tile_stats_count {
+    text-align: center;
+}
+
+.tile_count .tile_stats_count .count {
+    font-size: 27px;
+}
+
+.stt {
+    margin-right: 20px;
+}
+
+.stt i {
+    color: rgb(230, 96, 7);
+    font-size: 18px;
+    
+}
+
+.stt span {
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 18px;
+    color: rgb(0, 0, 61);
+}

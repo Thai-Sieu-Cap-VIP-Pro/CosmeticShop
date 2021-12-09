@@ -26,12 +26,13 @@
     <link href="{{asset('public/backEnd/vendors/jqvmap/dist/jqvmap.min.css')}}" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
     <link href="{{asset('public/backEnd/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
    
     <!-- Custom Theme Style -->
     
    
     <link rel="stylesheet" href="{{asset('public/backEnd/build/css/custom.min.css')}}" >
-    <link rel="stylesheet" href="{{asset('public/backEnd/build/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('public/backEnd/build/css/style.css?v=').time()}}">
     
     
     <link href="{{('public/backEnd/build/css/extra.css?v=').time()}}" rel="stylesheet">

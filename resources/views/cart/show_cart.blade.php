@@ -1,5 +1,12 @@
 @extends('frontLayout')
 @section('frontEndContent')
+<div class="breadcums row">
+    <ul>
+        <li>Home</li>
+        <li><i class="fa fa-angle-right"></i></li>
+        <li>Giỏ hàng</li>
+    </ul>
+</div>
 <div class="row cart">
     <div class="col-md-12">
         <div class="table_desc">

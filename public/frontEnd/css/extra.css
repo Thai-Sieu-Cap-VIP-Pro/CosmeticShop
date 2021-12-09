@@ -1,23 +1,31 @@
 :root {
     --primary-color: rgb(78 46 104);
     --secondary-color: #6f598a;
-    --x : linear-gradient(45deg,var(--primary-color), rgb(165, 2, 111)) ;
+    --x : linear-gradient(45deg, var(--primary-color), rgb(247, 19, 57)) ;
+
 }
 
 
 
 
 #search-ajax ul.dropdown-menu {
-    top: 29px;
-    width: 270px;
+    top: 42px;
+    width: 242px;
+    border-radius: 18px;
+    border: none;
+    overflow: hidden;
 }
 
 #search-ajax ul.dropdown-menu li a{
     color: black;
-    padding-left: 10px;
+    padding: 10px;
     display: block;
     font-size: 12px;
-    margin: 10px 0;
+    
+}
+
+#search-ajax ul.dropdown-menu li a:hover {
+    background: rgb(230, 228, 228);
 }
 
 .home-product-item:hover .product_image .add_cart {

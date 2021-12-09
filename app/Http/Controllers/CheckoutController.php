@@ -49,7 +49,7 @@ class CheckoutController extends Controller
 
     public function checkOut($id){
       
-        $shipping_list = DB::table('tbl_shipping')->where('account_id', $id)->get();
+        $shipping_list = DB::table('tbl_shipping')->where('account_id', $id)->orderBy('shipping_id','DESC')->get();
        
         $thuonghieu = DB::table('tbl_brand')->where('brand_status', '1')
         ->orderBy('brand_id','DESC')->get();
@@ -59,17 +59,8 @@ class CheckoutController extends Controller
     }
 
     public function saveCheckoutCustomer(Request $request){
-        $data = array();
-        $data['shipping_name'] = $request->shipping_name;
-        $data['shipping_phone'] = $request->shipping_phone;
-        $data['shipping_email'] = $request->shipping_email;
-        $data['shipping_district'] = $request->shipping_district;
-        $data['shipping_province'] = $request->shipping_province;
-        $data['shipping_commune'] = $request->shipping_commune;
-        $data['shipping_address'] = $request->shipping_address;
-        $data['shipping_note'] = $request->shipping_note;
-
-        $shipping_id = DB::table('tbl_shipping')->insertGetId($data);
+       
+        $shipping_id = $request->shipping_selected;
         Session::put('shipping_id', $shipping_id);
 
         $datapayment = array();
@@ -122,6 +113,10 @@ class CheckoutController extends Controller
         ->where('account_password', $password)->first();
         if($result){
             Session::put('account_id', $result->account_id);
+            Session::put('account_name', $result->account_name);
+            Session::put('account_img', $result->account_avatar);
+
+
             // return Redirect::to('/');
             return redirect('/');
         }else{
@@ -175,6 +170,8 @@ class CheckoutController extends Controller
             $image_name = time().'.'.$image->getClientOriginalExtension();
             $image->move($path, $image_name);
             DB::table('tbl_account')->where('account_id',$id)->update(['account_avatar'=> $image_name]);
+            Session::put('account_img', $image_name);
+
             return redirect('/profile/'.$id);
         }
     }

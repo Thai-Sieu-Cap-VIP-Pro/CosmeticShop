@@ -50,12 +50,15 @@
         <div class="row profile_home">
             <?php
             $account_id = Session::get('account_id');
+            $account_name = Session::get('account_name');
+            $account_img = Session::get('account_img');
+
             if($account_id !=NULL){
              ?>
               <div class="profile">
                 <div class="profile__info" >
-                   <img src="{{asset('public/frontEnd/images/logo.png')}}" alt="">
-                   <p>Gia Thái <i class="fas fa-caret-down"></i></p>
+                   <img src="{{asset('public/frontEnd/images/'.$account_img)}}" alt="">
+                   <p>{{$account_name}} <i class="fas fa-caret-down"></i></p>
                    <div class="profile__sub">
                     <ul>
                         <li>
@@ -130,21 +133,24 @@
              
 
             </div>
-            <div class="search_box col-sm-2">
+            <div class="search_box col-sm-3">
 
-                <form action="{{URL::to('/tim-kiem')}}" autocomplete="off" method ="GET">
+                <form action="{{URL::to('/tim-kiem')}}" autocomplete="off" method ="GET" id="search_product">
                     {{ csrf_field() }}
-                <input type="text" id="keywords" placeholder="Tìm kiếm..." name="tukhoa">
-                <div id="search-ajax">
-
-                </div>
-                <button type="submit" name="search-items" value="Tìm kiếm"><i class="fa fa-search"></i></button>
-                
+                    <div class="search_box_wrap">
+                        <input type="text" id="keywords" placeholder="Tìm kiếm..." name="tukhoa">
+                      
+                        <button name="search-items" value="Tìm kiếm" onclick="showSearchbox(event)"><i class="fa fa-search"></i></button>
+                        
+                    </div>
+                    <div id="search-ajax">
+        
+                    </div>
+                    <input type="submit" value="search">
                 </form>
-               
-
+            
             </div>
-            <div class="header_cart col-sm-2">
+            <div class="header_cart col-sm-1">
                 <a href="{{URL::to('/cart')}}" class="">
                     <i class="fas fa-shopping-cart"></i>
                     <p class="cart_quanity_header">{{Cart::content()->count()}}</p>
@@ -154,13 +160,13 @@
         <!-- end logo and search box -->
 
         <!-- start breadcums -->
-        <div class="breadcums row">
+        {{-- <div class="breadcums row">
             <ul>
                 <li>Home</li>
                 <li><i class="fa fa-angle-right"></i></li>
                 <li>Sản phẩm</li>
             </ul>
-        </div>
+        </div> --}}
         <!-- end breadcums -->
         <!-- =====================================================================end header===================================================================== -->
         <!-- =====================================================================start content =================================================================-->
@@ -295,6 +301,14 @@
             $('#keywords').val($(this).text());
             $('#search-ajax').fadeOut();
         }); 
+
+        function showSearchbox(event){
+            event.preventDefault();
+           
+                keywords.classList.toggle("show");
+         
+           
+        }
 
 
     </script>
