@@ -64,6 +64,41 @@
         </tbody>
       </table>
       <a href="{{URL::to('/add-category')}}" class="btn btn-primary">Thêm danh mục mới</a>
+
+      <!-- Phân trang -->
+      <div class="row">
+            <div class="col l-12 m-12 c-12 pagination_wrap">
+                <div class="pagination">
+                    <li style="display:inline;{{ ($all_category->currentPage() == 1) ? 'none;' : '' }}">
+                        <a href="{{ $all_category->url(1) }}">&laquo;</a>
+                    </li>
+                    @for ($i = 1; $i <= $all_category->lastPage(); $i++)
+                        <?php
+                        $link_limit = 7;
+                        $half_total_links = floor($link_limit / 2);
+                        $from = $all_category->currentPage() - $half_total_links;
+                        $to = $all_category->currentPage() + $half_total_links;
+                        if ($all_category->currentPage() < $half_total_links) {
+                            $to += $half_total_links - $all_category->currentPage();
+                        }
+                        if ($all_category->lastPage() - $all_category->currentPage() < $half_total_links) {
+                            $from -= $half_total_links - ($all_category->lastPage() - $all_category->currentPage()) - 1;
+                        }
+                        ?>
+                        @if ($from < $i && $i < $to)
+                            <li style="display:inline;" class="{{ ($all_category->currentPage() == $i) ? ' active' : '' }}">
+                                <a href="{{ $all_category->url($i) }}">{{ $i }}</a>
+                            </li>
+                        @endif
+                    @endfor
+                    <li style="display:inline;{{ ($all_category->currentPage() == $all_category->lastPage()) ? 'none;' : '' }}">
+                        <a href="{{ $all_category->url($all_category->lastPage()) }}">&raquo;</a>
+                    </li>
+                </div>
+            </div>
+        </div>
+
+        <!-- End phân trang -->
     </div>
     <div class="row">
             <div class="col l-12 m-12 c-12 pagination_wrap">

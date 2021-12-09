@@ -18,6 +18,7 @@
       <div class="clearfix"></div>
  
     </div>
+
   
 
     <div class="x_content">
@@ -75,8 +76,6 @@
             </tr>
           </thead>
           <tbody>
-          
-
           
         </div>
         <?php $i =0 ; ?>
